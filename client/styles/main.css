@@ -1,0 +1,33 @@
+#searchBar {
+  margin: 15px 10px;
+}
+
+.tableWrapper {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.table-row{
+  cursor: pointer;
+}
+
+.border{
+  border: 1px #337ab7;
+  border-style: solid;
+}
+.bold{
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.topmargin{
+  margin-top: 5px;
+}
+
+.delete-icon:hover{
+  color: #337ab7;
+}
+
+input:focus::placeholder{
+  color:#337ab7;
+}
