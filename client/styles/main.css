@@ -1,14 +1,7 @@
-#searchBar {
-  margin: 15px 10px;
-}
-
-.tableWrapper {
-  max-height: 400px;
-  overflow: auto;
-}
-
-.table-row{
-  cursor: pointer;
+html, body{
+  background-color : #D0CBCB;
+  margin : 0;
+  min-height : 100%;
 }
 
 .border{
@@ -20,7 +13,7 @@
   font-weight: bold;
 }
 
-.topmargin{
+.top-margin{
   margin-top: 5px;
 }
 
@@ -30,4 +23,38 @@
 
 input:focus::placeholder{
   color:#337ab7;
+}
+
+input:focus{
+  outline: none;
+}
+/* .login-input{
+  border-radius: 5px;
+  font-size : 2em;
+} */
+
+#header{
+  width:100%;
+  position: absolute;
+  height: 30px;
+  color: red;
+}
+
+.navbar {
+  background-color: #e3f2fd;
+}
+
+.logo{
+  height: 75px;
+  width: 144px;
+}
+
+.title{
+  display: inline;
+  font-size: 40px;
+}
+
+#login-card{
+  height : 30rem;
+  width : 30rem;
 }
