@@ -1,30 +1,35 @@
-.border{
+.border {
   border: 1px #337ab7;
   border-style: solid;
 }
-.bold{
+
+.bold {
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.top-margin{
+.card{
+  box-shadow: #337ab7 40px;
+}
+
+.top-margin {
   margin-top: 5px;
 }
 
-.delete-icon:hover{
+.delete-icon:hover {
   color: #337ab7;
 }
 
-input:focus::placeholder{
-  color:#337ab7;
+input:focus::placeholder {
+  color: #337ab7;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
-#header{
-  width:100%;
+#header {
+  width: 100%;
   position: absolute;
   height: 30px;
   color: red;
@@ -34,21 +39,51 @@ input:focus{
   background-color: #e3f2fd;
 }
 
-.logo{
+.logo {
   height: 75px;
   width: 144px;
 }
 
-.title{
+.title {
   display: inline;
   font-size: 40px;
 }
 
-#login-card{
-  height : 35rem;
-  width : 35rem;
+#login-card {
+  height: 35rem;
+  width: 35rem;
 }
 
-.login-href{
-  font-size : 1.2em;
+.login-href {
+  font-size: 1.2em;
+}
+
+.flip {
+  position: relative;
+  perspective: 1000;
+}
+
+.flip .card {
+  transition: 0.8s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.flip .card .face {
+  backface-visibility: hidden;
+  z-index: 2;
+}
+
+.flip .card.flipped {
+  transform: rotateY(-180deg);
+}
+
+.front {
+  z-index: 30;
+}
+
+.flip .card .back {
+  transform: rotateY(-180deg);
+  position:absolute;
+  width:100%;
 }

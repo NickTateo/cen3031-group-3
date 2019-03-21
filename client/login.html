@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
-<body ng-app="directoryApp">
+<body ng-app="TweetData" ng-controller="AuthController">
     <div class="container-fluid">
         <div class="row navbar">
             <div class="col-md-4">
@@ -28,47 +28,72 @@
     <div>
     </div>
     <div id="login-container" class="container-fluid d-flex justify-content-center">
-        <div>
-            <div id="login-card" class="card card-rotating d-inline-flex">
+        <div class="flip">
+            <div id="login-card" ng-class="className" class="card shadow d-inline-flex">
                 <div class="face front">
                     <div class="card-body d-flex flex-column justify-content-center">
                         <h1>Sign in</h1>
-                        <div class="offset-1 col-md-10 d-flex flex-column justify-content-center">
+                        <div class="offset-1 col-10 d-flex flex-column justify-content-center">
                             <form>
                                 <div class="form-group md-2">
                                     <input class="login-input form-control form-control-lg" placeholder="Username"
-                                        type="text">
+                                        ng-model="loginUsername" type="text">
                                 </div>
                                 <div class="form-group md-2">
                                     <input class="login-input form-control form-control-lg" placeholder="Password"
-                                        type="password">
+                                        ng-model="loginPassword" type="password">
                                 </div>
                                 <a href="#" class="login-href">
                                     Forgot your password?
                                 </a>
                                 <br>
-                                <a href="#" class="login-href rotate-btn" data-card = "login-card">
+                                <a href="#" ng-click="flip()" class="login-href rotate-btn">
                                     Need an account?
                                 </a>
                                 <br>
                                 <button type="button" style="float: right" class="btn btn-primary top-margin"
-                                    id="login-button">Login</button>
+                                    ng-click="login()" id="login-button">Log in</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="face back">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h1>Sign up</h1>
+                        <div class="offset-1 col-10 d-flex flex-column justify-content-center">
+                            <form>
+                                <div class="form-group md-2">
+                                    <input class="login-input form-control form-control-lg" placeholder="Username"
+                                        ng-model="signupUsername" type="text">
+                                </div>
+                                <div class="form-group md-2">
+                                    <input class="login-input form-control form-control-lg" placeholder="Password"
+                                        ng-model="signupPassword" type="password">
+                                </div>
+                                Do we want to gather any more info?
+                                <br />
+                                <a href="#" ng-click="flip()" class="login-href rotate-btn">
+                                    Back to login?
+                                </a>
+                                <br>
+                                <button type="button" style="float: right" class="btn btn-primary top-margin"
+                                    ng-click="signup()" id="signup-button">Sign up</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class = "face back">
-                    Testing flip
-                </div>
             </div>
         </div>
     </div>
-    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/controllers/authController.js"></script>
+    <script src="js/factories/authFactory.js"></script>
 </body>
 
 </html>
