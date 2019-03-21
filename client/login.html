@@ -29,7 +29,7 @@
     </div>
     <div id="login-container" class="container-fluid d-flex justify-content-center">
         <div class="flip">
-            <div id="login-card" ng-class="className" class="card shadow d-inline-flex">
+            <div id="login-card" ng-class="flipClass" class="card shadow d-inline-flex">
                 <div class="face front">
                     <div class="card-body d-flex flex-column justify-content-center">
                         <h1>Sign in</h1>
@@ -43,15 +43,15 @@
                                     <input class="login-input form-control form-control-lg" placeholder="Password"
                                         ng-model="loginPassword" type="password">
                                 </div>
-                                <a href="#" class="login-href">
+                                <a href="" class="login-href">
                                     Forgot your password?
                                 </a>
                                 <br>
-                                <a href="#" ng-click="flip()" class="login-href rotate-btn">
+                                <a href="" ng-click="flip()" class="login-href rotate-btn">
                                     Need an account?
                                 </a>
                                 <br>
-                                <button type="button" style="float: right" class="btn btn-primary top-margin"
+                                <button type="button" style="float: right" class="btn btn-lg btn-primary top-margin"
                                     ng-click="login()" id="login-button">Log in</button>
                             </form>
                         </div>
@@ -73,11 +73,11 @@
                                 </div>
                                 Do we want to gather any more info?
                                 <br />
-                                <a href="#" ng-click="flip()" class="login-href rotate-btn">
+                                <a href="" ng-click="flip()" class="login-href rotate-btn">
                                     Back to login?
                                 </a>
                                 <br>
-                                <button type="button" style="float: right" class="btn btn-primary top-margin"
+                                <button type="button" style="float: right" class="btn btn-lg btn-primary top-margin"
                                     ng-click="signup()" id="signup-button">Sign up</button>
                             </form>
                         </div>

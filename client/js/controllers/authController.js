@@ -4,15 +4,14 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
         //     $('#login-card').toggleClass("flipped");
         // });
 
-        $scope.className = "";
 
         $scope.flip = () => {
         
-            if ($scope.className !== "flipped") {
-                $scope.className = "flipped";
+            if ($scope.flipClass !== "flipped") {
+                $scope.flipClass = "flipped";
             }
             else {
-                $scope.className = "";
+                $scope.flipClass = "";
             }
         }
 

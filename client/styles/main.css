@@ -8,10 +8,6 @@
   font-weight: bold;
 }
 
-.card{
-  box-shadow: #337ab7 40px;
-}
-
 .top-margin {
   margin-top: 5px;
 }
@@ -60,11 +56,11 @@ input:focus {
 
 .flip {
   position: relative;
-  perspective: 1000;
+  perspective: 400;
 }
 
 .flip .card {
-  transition: 0.8s;
+  transition: 0.7s;
   transform-style: preserve-3d;
   position: relative;
 }
@@ -80,10 +76,16 @@ input:focus {
 
 .front {
   z-index: 30;
+  height: 100%;
 }
 
 .flip .card .back {
   transform: rotateY(-180deg);
   position:absolute;
   width:100%;
+  height: 100%;
+}
+
+.card-body{
+  height:100%;
 }
