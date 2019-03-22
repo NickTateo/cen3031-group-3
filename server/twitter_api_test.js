@@ -17,10 +17,10 @@ const fs = require('fs');
 var twitter_response;
  
 var client = new Twitter({
-  consumer_key: '',
-  consumer_secret: '',
-  access_token_key: '',
-  access_token_secret: ''
+  consumer_key: 'i7RjwAZY3TsjP1cZbkqN2jyNg',
+  consumer_secret: 'aBDFDyTyLZ4RqR6pVAI25D9fN0dsNg7XuDWDPFiLAzOFrL8VXc',
+  access_token_key: '1108438506249117696-MtZU031aE7suJXAlGphvpwtkBbp9o5',
+  access_token_secret: 'EAQsACn8tR1RVKVLOjrg6hx3nbDw5Aa0sDdqoXMaYYW3J'
 });
 
 // client.get('trends/place', {id: '2450022'}, function(error, tweets, response) {
