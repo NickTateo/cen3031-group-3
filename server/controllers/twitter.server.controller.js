@@ -9,10 +9,34 @@ var client = new Twitter({
     access_token_secret: 'EAQsACn8tR1RVKVLOjrg6hx3nbDw5Aa0sDdqoXMaYYW3J'
 });
 
+checkValidArea = (userInput) => {
+    var woeid;
+   
+    var twitterResponse = client.get('trends/available', {}, (error, response) => {
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+        // twitterResponse = response;
+        console.log(response);
+        return response;
+    })
+    console.log(twitterResponse);
+    // for (let i = 0; i < twitterResponse.length; i++) {
+    //     console.log(twitterResponse[i].name);
+    //     if (twitterResponse[i].name == userInput) {
+    //         //console.log(response[i].woeid);
+    //         woeid = twitterResponse[i].woeid;
+    //         break;
+    //     }
+    // }
+    console.log(woeid);
+    return woeid;
+}
 
 
 
-exports.test = (req,res,next) => {
+exports.test = (req, res, next) => {
     // client.get('trends/place', {id: '2450022'}, function(error, tweets, response) {
     return client.get('trends/place', { id: '615702' }, function (error, response) {
         if (error) {
@@ -24,12 +48,12 @@ exports.test = (req,res,next) => {
         twitter_response = response;
         console.log("got info from twitter");
 
-        function sortTrends(tweet_volume){
-            return function(a, b){
-                if(a[tweet_volume] < b[tweet_volume]){
+        function sortTrends(tweet_volume) {
+            return function (a, b) {
+                if (a[tweet_volume] < b[tweet_volume]) {
                     return 1;
                 }
-                else if(a[tweet_volume] > b[tweet_volume]){
+                else if (a[tweet_volume] > b[tweet_volume]) {
                     return -1;
                 }
                 return 0;
@@ -44,32 +68,39 @@ exports.test = (req,res,next) => {
 }
 
 
-exports.dynamicTrends = (req,res,next) => {
-    return client.get('trends/place', { id: req.params.userPlace}, function (error, response) {
-        if (error) {
-            console.log(error);
-            throw error;
-        }
-        // console.log(tweets);  // The favorites.
-        // console.log(response);  // Raw response object.
-        twitter_response = response;
-        console.log("got info from twitter");
-        //console.log(JSON.stringify(twitter_response));
-        function sortTrends(tweet_volume){
-            return function(a, b){
-                if(a[tweet_volume] < b[tweet_volume]){
-                    return 1;
-                }
-                else if(a[tweet_volume] > b[tweet_volume]){
-                    return -1;
-                }
-                return 0;
+exports.dynamicTrends = (req, res, next) => {
+    var woeid = checkValidArea(req.params.userPlace);
+    console.log(woeid);
+    if (woeid != null) {
+        return client.get('trends/place', { id: woeid }, function (error, response) {
+            if (error) {
+                console.log(error);
+                throw error;
             }
-        }
-        twitter_response[0].trends.sort(sortTrends("tweet_volume"));
+            // console.log(tweets);  // The favorites.
+            // console.log(response);  // Raw response object.
+            twitter_response = response;
+            console.log("got info from twitter");
+            //console.log(JSON.stringify(twitter_response));
+            function sortTrends(tweet_volume) {
+                return function (a, b) {
+                    if (a[tweet_volume] < b[tweet_volume]) {
+                        return 1;
+                    }
+                    else if (a[tweet_volume] > b[tweet_volume]) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            }
+            twitter_response[0].trends.sort(sortTrends("tweet_volume"));
 
-        return res.status(200).json(twitter_response);
-    });
+            return res.status(200).json(twitter_response);
+        });
+    }
+    else {
+        return res.status(200).json("Sorry, That location is either not trending or is not valid.");
+    }
     //console.log("in server controller looking at " + req.params.userPlace);
     //return res.status(200);
 }
