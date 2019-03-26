@@ -51,6 +51,13 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
       console.log('Unable to retrieve listings:', error);
     });
 
+
+    $scope.searchTrend = function() {
+      var userInput = $scope.userPlace;
+      console.log("clicked button");
+      Listings.getTrends(userInput);
+    };
+
     //$scope.detailedInfo = undefined;
 
     // $scope.addListing = function () {

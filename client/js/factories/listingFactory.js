@@ -4,6 +4,11 @@ angular.module('listings').factory('Listings', function ($http) {
       return $http.get('/api/twitter');
     },
 
+    getTrends: function(userPlace){
+      console.log("got to factory with userPlace: " + userPlace);
+      return $http.get('/api/twitter/'+ userPlace);
+    },
+
     create: function (listing) {
       return $http.post('/api/listings', listing);
     },

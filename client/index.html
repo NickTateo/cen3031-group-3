@@ -9,8 +9,10 @@
 <body ng-app="directoryApp">
   <div class="container" ng-controller="ListingsController">
     <div class="row">
-
-  <canvas id= "test-chart"></canvas>
+      Place: <input type="number" ng-model="userPlace"><button ng-click="searchTrend()">See Trends</button>
+      <canvas id= "test-chart"></canvas>
+    </div>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>

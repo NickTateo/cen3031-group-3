@@ -5,5 +5,7 @@ var twitter = require('../controllers/twitter.server.controller.js'),
 router.route('/')
     .get(twitter.test);
 
+router.route('/:userPlace')
+	.get(twitter.dynamicTrends);
 
 module.exports = router;
