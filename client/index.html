@@ -11,6 +11,10 @@
     <div class="row">
       Place: <input type="text" ng-model="userPlace"><button ng-click="searchTrend()">See Trends</button>
       <canvas id= "test-chart"></canvas>
+      <div id="no-results" style="display: none">
+        <h1>:( Sorry!</h1>
+        <h2>Your search either has a typo or has no topics currently Trending</h2>
+      </div>
     </div>
   </div>
 
