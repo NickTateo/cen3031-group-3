@@ -32,29 +32,30 @@ function checkValidArea(userInput) {
 
 
 exports.test = (req, res, next) => {
-    return client.get('trends/place', { id: '615702' }, function (error, response) {
-        if (error) {
-            console.log(error);
-            throw error;
-        }
-        twitter_response = response;
-        console.log("got info from twitter");
+    // return client.get('trends/place', { id: '615702' }, function (error, response) {
+    //     if (error) {
+    //         console.log(error);
+    //         throw error;
+    //     }
+    //     twitter_response = response;
+    //     console.log("got info from twitter");
 
-        function sortTrends(tweet_volume) {
-            return function (a, b) {
-                if (a[tweet_volume] < b[tweet_volume]) {
-                    return 1;
-                }
-                else if (a[tweet_volume] > b[tweet_volume]) {
-                    return -1;
-                }
-                return 0;
-            }
-        }
-        twitter_response[0].trends.sort(sortTrends("tweet_volume"));
+    //     function sortTrends(tweet_volume) {
+    //         return function (a, b) {
+    //             if (a[tweet_volume] < b[tweet_volume]) {
+    //                 return 1;
+    //             }
+    //             else if (a[tweet_volume] > b[tweet_volume]) {
+    //                 return -1;
+    //             }
+    //             return 0;
+    //         }
+    //     }
+    //     twitter_response[0].trends.sort(sortTrends("tweet_volume"));
 
-        return res.status(200).json(twitter_response);
-    });
+    //     return res.status(200).json(twitter_response);
+    // });
+    return res.status(200).json("Sorry, That location is either not trending or is not valid.");
 }
 
 
