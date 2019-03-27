@@ -9,30 +9,45 @@ var client = new Twitter({
     access_token_secret: 'EAQsACn8tR1RVKVLOjrg6hx3nbDw5Aa0sDdqoXMaYYW3J'
 });
 
-checkValidArea = (userInput) => {
-    var woeid;
-   
-    var twitterResponse = client.get('trends/available', {}, (error, response) => {
-        if (error) {
-            console.log(error);
-            throw error;
-        }
-        // twitterResponse = response;
-        console.log(response);
-        return response;
-    })
-    console.log(twitterResponse);
-    // for (let i = 0; i < twitterResponse.length; i++) {
-    //     console.log(twitterResponse[i].name);
-    //     if (twitterResponse[i].name == userInput) {
-    //         //console.log(response[i].woeid);
-    //         woeid = twitterResponse[i].woeid;
-    //         break;
-    //     }
-    // }
-    console.log(woeid);
-    return woeid;
+function checkValidArea(userInput){
+    //var woeid;
+    //var twitterResponse;
+    let promise = new Promise(function(resolve, reject){
+        client.get('trends/available', function(error, response){
+            if (error) {
+                console.log(error);
+                reject(error);
+                throw error;
+            }
+            //twitterResponse = response;
+            resolve(response);
+        });
+    });
+    return promise;
 }
+
+    //promise.then(result => successCallBack(result));
+
+async function successCallBack(result){
+    var final = -1;
+    await checkValidArea(result).then(twitterResponse => {
+        //console.log(JSON.stringify(twitterResponse));
+        for (let i = 0; i < twitterResponse.length; i++) {
+            //console.log(twitterResponse[i].name);
+            if (twitterResponse[i].name == result) {
+                console.log("found woeid is: " + twitterResponse[i].woeid);
+                final = twitterResponse[i].woeid;
+                return final;
+                //return woeid;            
+            }
+        }
+    });
+    
+    return final;
+}
+    
+    // console.log("woeid: " + woeid);
+    // return woeid;
 
 
 
@@ -68,10 +83,11 @@ exports.test = (req, res, next) => {
 }
 
 
-exports.dynamicTrends = (req, res, next) => {
-    var woeid = checkValidArea(req.params.userPlace);
-    console.log(woeid);
-    if (woeid != null) {
+exports.dynamicTrends = async function(req, res, next){
+    var woeid = await successCallBack(req.params.userPlace);
+    console.log("woeid is: " + woeid);
+    var userPlace;
+    if (woeid != -1) {
         return client.get('trends/place', { id: woeid }, function (error, response) {
             if (error) {
                 console.log(error);
@@ -101,6 +117,6 @@ exports.dynamicTrends = (req, res, next) => {
     else {
         return res.status(200).json("Sorry, That location is either not trending or is not valid.");
     }
-    //console.log("in server controller looking at " + req.params.userPlace);
-    //return res.status(200);
+    console.log("in server controller looking at " + req.params.userPlace);
+    return res.status(200);
 }

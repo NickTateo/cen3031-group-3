@@ -71,6 +71,7 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
           labelPop[i] = $scope.listings[0].trends[i].tweet_volume;
         }
         //console.log($scope.listings.length);
+        //console.log("Trends in " + $scope.listings[0].locations[0].name);
         var ctx = document.getElementById('test-chart').getContext('2d');
         chart = new Chart(ctx, {
           // The type of chart we want to create
@@ -80,7 +81,7 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
           data: {
             labels: labelName,
             datasets: [{
-              label: 'Trending Topics in ??',
+              label: 'Trending Topics in '+$scope.listings[0].locations[0].name,
               backgroundColor: 'rgb(255, 99, 132)',
               borderColor: 'rgb(255, 99, 132)',
               data: labelPop,
