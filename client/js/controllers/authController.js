@@ -4,11 +4,9 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
         //     $('#login-card').toggleClass("flipped");
         // });
 
-
         $scope.flip = () => {
-        
             if ($scope.flipClass !== "flipped") {
-                $scope.flipClass = "flipped";
+				$scope.flipClass = "flipped";
             }
             else {
                 $scope.flipClass = "";
@@ -26,7 +24,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
             })
         }
 
-        $scope.signup = function () {
+        $scope.signup = () => {
             Auth.signup($scope.signupUsername, $scope.signupPassword).then((result) => {
                 if (result.status == 200) {
                     //Are we logging the user in automatically after signup?
@@ -39,5 +37,16 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
                 }
             })
         }
+		
+		$scope.isUserSignedIn = false;
+		
+		$scope.signIn = () => {
+			alert("Wrong function");
+		}
+		
+		$scope.toggle = (tog) => {
+			tog.show = !tog.show;
+		};
+		
     }
 ]);
