@@ -9,11 +9,11 @@
 <body ng-app="directoryApp">
   <div class="container" ng-controller="ListingsController">
     <div class="row">
-      Place: <input type="text" ng-model="userPlace"><button ng-click="searchTrend()">See Trends</button>
+      Place: <input type="text" ng-model="userPlace" ng-keyup="$event.keyCode == 13 ? searchTrend() : null"><button ng-click="searchTrend()">See Trends</button>
       <canvas id= "test-chart"></canvas>
       <div id="no-results" style="display: none">
         <h1>:( Sorry!</h1>
-        <h2>Your search either has a typo or has no topics currently Trending</h2>
+        <h2>Your search either has a typo or has no topics currently trending</h2>
       </div>
     </div>
   </div>
