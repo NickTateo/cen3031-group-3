@@ -5,176 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <div class="container-fluid">
-    <div class="row navbar">
-      <div class="col-md-4">
-        <nav class="navbar navbar-light">
-          <a href="#">
-            <img src="logo.png" class="d-inline-block align-top logo" alt=""> <h1 class="title">TweetData</h1>
-          </a>
-        </nav>
-      </div>
-      <div class="col-md-7"></div>
-      <div class="col-md-1">
-        <div class="logout">
-            <button class="btn btn-default btn-lg">Logout</button>
+  <body ng-app="tweetData">
+
+    <div class="container-fluid" ng-controller="areaTopicController">
+      <div class="row navbar">
+        <div class="col-md-4">
+          <nav class="navbar navbar-light">
+            <a href="#">
+              <img src="logo.png" class="d-inline-block align-top logo" alt=""> <h1 class="title">TweetData</h1>
+            </a>
+          </nav>
         </div>
-      </div>
-  </div>
-
-  <!-- Topic Title -->
-  <div class="row">
-    <div class="col-md-1">
-      <button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"></span></button>
-    </div>
-    <div class="col-md-10">
-      <div class="topic-title">
-        <h2>Results for Topic: @@@</h2>
-        <br>
-        <h2>in location: ###</h2>
-      </div>
-    </div>
-    <div class="col-md-1"></div>
-  </div>
-
-  <!-- Analytics -->
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-5">
-      <div class="graph panel panel-default">
-        <h3>Graph</h3>
-        <!-- temporary image -->
-        <img src="http://www.barebooks.com/wp-content/uploads/2013/10/GM05.gif">
-      </div>
-      <div class="refine-area-wrapper panel panel-default">
-        <form class="form-inline refine-area" action="#">
-          <div class="form-group">
-            <label for="area">Area:</label>
-            <input type="string" class="form-control" id="??" placeholder="Filter Further By Area" name="??">
+        <div class="col-md-7"></div>
+        <div class="col-md-1">
+          <div class="logout">
+              <button class="btn btn-default btn-lg">Logout</button>
           </div>
-          <button type="submit" class="btn btn-default">Filter</button>
-        </form>
-      </div>
-    </div>
-    <div class="col-md-5 users-n-tweets">
-      <div class="panel panel-default">
-        <h3>Popular Users</h3>
-        <div class="table-wrapper">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>Followers</th>
-                <th>Topical Tweets</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr><tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-              <tr>
-                <td>@test</td>
-                <td>???</td>
-                <td>??</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
-      <div class="panel panel-default">
-        <h3>Popular Tweets</h3>
-        <div class="table-wrapper">
-          <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote>
-          <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote>
-          <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote>
-          <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Sunsets don&#39;t get much better than this one over <a href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>. <a href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a> <a href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a> <a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a></p>&mdash; US Department of the Interior (@Interior) <a href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May 5, 2014</a></blockquote>
+
+      <!-- Topic Title -->
+      <div class="row">
+        <div class="col-md-1">
+          <button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"></span></button>
         </div>
-     </div>
+        <div class="col-md-10">
+          <div class="topic-title">
+            <h2>Results for Topic: @@@</h2>
+            <br>
+            <h2>in location: ###</h2>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+
+      
     </div>
-    <div class="col-md-1"></div>
-  </div>
-  
+
+  </body>
 </html>
 
 <style>

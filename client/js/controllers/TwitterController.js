@@ -1,5 +1,5 @@
-angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter',
-  function ($scope, Twitter) {
+angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', '$window',
+  function ($scope, Twitter, $window) {
     var graphExists = false;
     var chart;
 
@@ -13,6 +13,7 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter',
       else{
         console.log("trend is "+selected[0]._model.label);
         sessionStorage.setItem("topic", selected[0]._model.label);
+        $window.location.href = '../../datapage_template.html';
       }
     };
 
