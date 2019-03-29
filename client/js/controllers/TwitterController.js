@@ -1,5 +1,5 @@
-angular.module('listings').controller('ListingsController', ['$scope', 'Listings',
-  function ($scope, Listings) {
+angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter',
+  function ($scope, Twitter) {
     var graphExists = false;
     var chart;
 
@@ -12,13 +12,15 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
       }
       else{
         console.log("trend is "+selected[0]._model.label);
+        sessionStorage.setItem("topic", selected[0]._model.label);
       }
     };
 
     $scope.searchTrend = function() {
       var userInput = $scope.userPlace;
       console.log("clicked button");
-      Listings.getTrends(userInput).then(function(response){
+      sessionStorage.setItem("place", userInput);
+      Twitter.getTrends(userInput).then(function(response){
         if(graphExists){
           var tmpChart = chart;
           chart = null;
