@@ -111,38 +111,47 @@ exports.dynamicTrends = function (req, res, next) {
     });
 }
 
-function getCoord(place) {
-    // let promise = new Promise(function(resolve, reject){
-    //     geocoder.geocode(place, function(error, response){
-    //         console.log("getting coords");
-    //         if(error){
-    //             console.log("could not get place coordinates, error from geocoder api below:");
-    //             console.log(error);
-    //             resolve(-1);
-    //         }
-    //         var lat = response[0].latitude;
-    //         var lon = response[0].longitude;
-    //         var coord =    {latitude: lat, 
-    //                         longitude: lon};
-    //         console.log("got coords of " + place + ": " + JSON.stringify(coord));
-    //         resolve(coord);
-    //     });
-    // })
-    // return promise;
+function getCoord(place){
+    let promise = new Promise(function(resolve, reject){
+        geocoder.geocode(place, function(error, response){
+            console.log("getting coords");
+            if(error){
+                console.log("could not get place coordinates, error from geocoder api below:");
+                console.log(error);
+                resolve(-1);
+            }
+            var lat = response[0].latitude;
+            var lon = response[0].longitude;
+            var coord =    {latitude: lat, 
+                            longitude: lon};
+            console.log("got coords of " + place + ": " + JSON.stringify(coord));
+            resolve(coord);
+        });
+    })
+    return promise;
 }
 
 exports.areaTopicTweets = function (req, res, next) {
     console.log("\nin areaTopicTweets()!");
-    // var place = req.place;
-    // var topic = req.topic;
-    console.log("in backend with place: " + req.params.place + " and topic: " + req.params.topic + "has hash? " + req.params.isHash);
-    // console.log(req.params.place);
+    // console.log("in backend with place: " + req.params.place + " and topic: " + req.params.topic + "has hash? " + req.params.isHash);
+    var topic = req.params.topic;
+    var place = req.params.place;
+    var isHash = req.params.isHash;
 
+    // console.log("type of isHash: " + typeof isHash);
 
-    // getCoord(place).then(function(coord){
-    //     console.log("got coords: " + coord.latitude + ", " + coord.longitude);
-    //     return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
-    // });
+    if(isHash === "true"){
+        topic = "#" + topic;
+    }
+
+    // console.log("topic: " + topic);
+    // console.log("place: " + place);
+    // console.log("isHash: " + isHash);
+
+    getCoord(place).then(function(coord){
+        console.log("got coords: " + coord.latitude + ", " + coord.longitude);
+        return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
+    });
 }
 
 exports.areaOverTime = function (req, res, next) {
