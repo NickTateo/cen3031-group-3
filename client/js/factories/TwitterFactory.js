@@ -9,9 +9,17 @@ angular.module('twitter').factory('Twitter', function ($http) {
       return $http.get('/api/twitter/'+ userPlace);
     },
 
-    areaTopic: function(place,topic){
+    areaTopic: function(place, topic){
       console.log("Called on init");
-      return $http.get('/api/twitter/topicByArea', place, topic);
+      var isHash;
+      if(topic[0] == "#"){
+        topic = topic.substring(1, topic.length);
+        isHash = true;
+      }
+      else{
+        isHash=false;
+      }
+      return $http.get('/api/twitter/topicByArea/'+ place + '/' + topic + '/' + isHash);
     },
 
     create: function (listing) {

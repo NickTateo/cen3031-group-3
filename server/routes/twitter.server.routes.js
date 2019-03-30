@@ -5,10 +5,11 @@ var twitter = require('../controllers/twitter.server.controller.js'),
 router.route('/')
     .get(twitter.test);
 
+router.route('/topicByArea/:place/:topic/:isHash')
+	.get(twitter.areaTopicTweets);
+
 router.route('/:userPlace')
 	.get(twitter.dynamicTrends);
 
-router.route('/topicByArea')
-	.get(twitter.areaTopicTweets);
 
 module.exports = router;

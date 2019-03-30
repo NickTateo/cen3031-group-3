@@ -131,9 +131,12 @@ function getCoord(place){
 
 exports.areaTopicTweets = function(req, res, next){
     console.log("\nin areaTopicTweets()!");
-    var place = req.params.place;
-    var topic = req.params.topic;
-    console.log("in backend with place: " + place + " and topic: " + topic);
+    // var place = req.place;
+    // var topic = req.topic;
+    console.log("in backend with place: " + req.params.place + " and topic: " + req.params.topic + "has hash? " + req.params.isHash);
+    // console.log(req.params.place);
+
+
     // getCoord(place).then(function(coord){
     //     console.log("got coords: " + coord.latitude + ", " + coord.longitude);
     //     return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
