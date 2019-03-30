@@ -8,10 +8,12 @@ angular.module('twitter').factory('Twitter', function ($http) {
       console.log("got to factory with userPlace: " + userPlace);
       return $http.get('/api/twitter/'+ userPlace);
     },
-    areaTopic: (place,topic)=>{
+
+    areaTopic: function(place,topic){
       console.log("Called on init");
-      return $http.get(`/api/twitter/${place}/${topic}`);
+      return $http.get('/api/twitter/topicByArea', place, topic);
     },
+
     create: function (listing) {
       return $http.post('/api/listings', listing);
     },

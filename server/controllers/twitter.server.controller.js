@@ -1,3 +1,4 @@
+// stuff for twitter api
 var Twitter = require('twitter');
 
 var twitter_response;
@@ -9,6 +10,21 @@ var client = new Twitter({
     access_token_secret: 'EAQsACn8tR1RVKVLOjrg6hx3nbDw5Aa0sDdqoXMaYYW3J'
 });
 
+
+// stuff for geocoder api
+var NodeGeocoder = require('node-geocoder');
+
+var options = {
+    provider: 'opencage',
+    httpAdapter: 'https',
+    apiKey: '095ea1c908db4188932d39190371a784',
+    formatter: null
+};
+
+var geocoder = NodeGeocoder(options);
+
+
+// functionality
 function checkValidArea(userInput) {
     let promise = new Promise(function (resolve, reject) {
         client.get('trends/available', function (error, response) {
@@ -60,6 +76,7 @@ exports.test = (req, res, next) => {
 
 
 exports.dynamicTrends = function (req, res, next) {
+    console.log("\nin dynamicTrends()!");
     checkValidArea(req.params.userPlace).then(woeid => {
         console.log("Result is " + woeid);
         if (woeid != -1) {
@@ -90,4 +107,35 @@ exports.dynamicTrends = function (req, res, next) {
             return res.status(200).json("Sorry, That location is either not trending or is not valid.");
         }
     });
+}
+
+function getCoord(place){
+    // let promise = new Promise(function(resolve, reject){
+    //     geocoder.geocode(place, function(error, response){
+    //         console.log("getting coords");
+    //         if(error){
+    //             console.log("could not get place coordinates, error from geocoder api below:");
+    //             console.log(error);
+    //             resolve(-1);
+    //         }
+    //         var lat = response[0].latitude;
+    //         var lon = response[0].longitude;
+    //         var coord =    {latitude: lat, 
+    //                         longitude: lon};
+    //         console.log("got coords of " + place + ": " + JSON.stringify(coord));
+    //         resolve(coord);
+    //     });
+    // })
+    // return promise;
+}
+
+exports.areaTopicTweets = function(req, res, next){
+    console.log("\nin areaTopicTweets()!");
+    var place = req.params.place;
+    var topic = req.params.topic;
+    console.log("in backend with place: " + place + " and topic: " + topic);
+    // getCoord(place).then(function(coord){
+    //     console.log("got coords: " + coord.latitude + ", " + coord.longitude);
+    //     return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
+    // });
 }

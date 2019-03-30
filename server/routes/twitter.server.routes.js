@@ -8,4 +8,7 @@ router.route('/')
 router.route('/:userPlace')
 	.get(twitter.dynamicTrends);
 
+router.route('/topicByArea')
+	.get(twitter.areaTopicTweets);
+
 module.exports = router;

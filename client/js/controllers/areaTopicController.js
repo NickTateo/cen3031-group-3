@@ -5,8 +5,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
 	var topic = sessionStorage.getItem('topic');
 
     Twitter.areaTopic(place, topic).then((response)=>{
-        console.log("Called this on init");
-        console.log(response);
+        console.log("Called this on init with values " + place + " and " + topic);
+        //console.log(response);
     })
 }
 ]);
