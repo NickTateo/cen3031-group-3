@@ -101,7 +101,7 @@ exports.dynamicTrends = function (req, res, next) {
                 }
                 twitter_response = response;
                 console.log("got info from twitter");
-                
+
                 twitter_response[0].trends.sort(sorting("tweet_volume"));
 
                 return res.status(200).json(twitter_response);
@@ -113,19 +113,21 @@ exports.dynamicTrends = function (req, res, next) {
     });
 }
 
-function getCoord(place){
-    let promise = new Promise(function(resolve, reject){
-        geocoder.geocode(place, function(error, response){
+function getCoord(place) {
+    let promise = new Promise(function (resolve, reject) {
+        geocoder.geocode(place, function (error, response) {
             console.log("getting coords");
-            if(error){
+            if (error) {
                 console.log("could not get place coordinates, error from geocoder api below:");
                 console.log(error);
                 resolve(-1);
             }
             var lat = response[0].latitude;
             var lon = response[0].longitude;
-            var coord =    {latitude: lat, 
-                            longitude: lon};
+            var coord = {
+                latitude: lat,
+                longitude: lon
+            };
             console.log("got coords of " + place + ": " + JSON.stringify(coord));
             resolve(coord);
         });
