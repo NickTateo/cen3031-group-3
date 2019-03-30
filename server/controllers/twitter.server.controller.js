@@ -25,6 +25,8 @@ var geocoder = NodeGeocoder(options);
 
 
 // functionality
+
+
 function checkValidArea(userInput) {
     let promise = new Promise(function (resolve, reject) {
         client.get('trends/available', function (error, response) {
@@ -138,31 +140,23 @@ exports.areaTopicTweets = function (req, res, next) {
     var place = req.params.place;
     var isHash = req.params.isHash;
 
-    // console.log("type of isHash: " + typeof isHash);
-
     if(isHash === "true"){
         topic = "#" + topic;
     }
 
-    // console.log("topic: " + topic);
-    // console.log("place: " + place);
-    // console.log("isHash: " + isHash);
-
     getCoord(place).then(function(coord){
-        console.log("got coords: " + coord.latitude + ", " + coord.longitude);
-        return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
+        // console.log("got coords: " + coord.latitude + ", " + coord.longitude);
+        var searchLocation = coord.latitude+','+coord.longitude+',10mi';
+        // console.log("search location: "+searchLocation);
+        var searchQuery = " -RT " + topic;
+        // console.log("search query: " + searchQuery);
+        client.get('search/tweets', {q: searchQuery, geocode: searchLocation}, function(error, response){
+            if(error){
+                console.log("error getting tweet data about trend in specific location");
+                return res.status(200).json("could not get tweet data about trend in specific location");
+            }
+            return res.status(200).json(response);            
+        });
+        // return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
     });
-}
-
-exports.areaOverTime = function (req, res, next) {
-    console.log(req);
-    client.get("search/tweets", {q : `-rt ${topic}`, geocode:location}, function(response, err){
-        if(err)
-        {
-            console.log(err);
-            throw err;
-        }
-
-    })
-    return res.status(200);
 }
