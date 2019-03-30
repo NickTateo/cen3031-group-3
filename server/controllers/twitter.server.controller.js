@@ -75,31 +75,33 @@ exports.test = (req, res, next) => {
 }
 
 
+function sorting(sortParam) {
+    return function (a, b) {
+        if (a[sortParam] < b[sortParam]) {
+            return 1;
+        }
+        else if (a[sortParam] > b[sortParam]) {
+            return -1;
+        }
+        return 0;
+    }
+}
+
 exports.dynamicTrends = function (req, res, next) {
     console.log("\nin dynamicTrends()!");
     checkValidArea(req.params.userPlace).then(woeid => {
         console.log("Result is " + woeid);
         if (woeid != -1) {
-            client.get('trends/place', { id: woeid}, function (error, response) {
+            client.get('trends/place', { id: woeid }, function (error, response) {
                 if (error) {
                     console.log(error);
                     throw error;
                 }
                 twitter_response = response;
                 console.log("got info from twitter");
-                function sortTrends(tweet_volume) {
-                    return function (a, b) {
-                        if (a[tweet_volume] < b[tweet_volume]) {
-                            return 1;
-                        }
-                        else if (a[tweet_volume] > b[tweet_volume]) {
-                            return -1;
-                        }
-                        return 0;
-                    }
-                }
-                twitter_response[0].trends.sort(sortTrends("tweet_volume"));
-    
+                
+                twitter_response[0].trends.sort(sorting("tweet_volume"));
+
                 return res.status(200).json(twitter_response);
             });
         }
@@ -109,7 +111,7 @@ exports.dynamicTrends = function (req, res, next) {
     });
 }
 
-function getCoord(place){
+function getCoord(place) {
     // let promise = new Promise(function(resolve, reject){
     //     geocoder.geocode(place, function(error, response){
     //         console.log("getting coords");
@@ -129,7 +131,7 @@ function getCoord(place){
     // return promise;
 }
 
-exports.areaTopicTweets = function(req, res, next){
+exports.areaTopicTweets = function (req, res, next) {
     console.log("\nin areaTopicTweets()!");
     // var place = req.place;
     // var topic = req.topic;
@@ -141,4 +143,17 @@ exports.areaTopicTweets = function(req, res, next){
     //     console.log("got coords: " + coord.latitude + ", " + coord.longitude);
     //     return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
     // });
+}
+
+exports.areaOverTime = function (req, res, next) {
+    console.log(req);
+    client.get("search/tweets", {q : `-rt ${topic}`, geocode:location}, function(response, err){
+        if(err)
+        {
+            console.log(err);
+            throw err;
+        }
+
+    })
+    return res.status(200);
 }
