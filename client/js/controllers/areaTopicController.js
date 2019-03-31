@@ -1,8 +1,13 @@
 angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter',
     ($scope, Twitter) => {
 
+        var responseData, lineGraph = null;
         var place = sessionStorage.getItem('place');
         var topic = sessionStorage.getItem('topic');
+
+        $scope.topic = topic;
+        $scope.place = place;
+
 
         if (!place || !topic) {
             console.log("no session storage!");
@@ -12,8 +17,9 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
         Twitter.areaTopic(place, topic).then((response) => {
             console.log("Called this on init with values " + place + " and " + topic);
             // console.log(response.data.statuses[0].user.name + "'s tweet got " + response.data.statuses[0].favorite_count + " favorites");
+            responseData = response.data.statuses;
             topTweetsGraph(response);
-            populateLineGraph(response);
+            $scope.lineRetweets();
         });
 
         function sorting(sortParam) {
@@ -27,58 +33,6 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 return 0;
             }
         }
-
-        function populateLineGraph(response) {
-            var ctx = $('#line-graph').get(0).getContext('2d');
-            console.log(response.data.statuses);
-            let yAxis = [], xAxis = [];
-            //response.statuses.sort(sorting("created_at"));
-            //console.log(response);
-            response.data.statuses.reverse();
-            console.log(new Date(response.data.statuses[0].created_at).getHours());
-            for (let i = 0; i < response.data.statuses.length; i++) {
-                if (i == 10) {
-                    break;
-                }
-                yAxis[i] = response.data.statuses[i].retweet_count;
-                let dateCreated = new Date(response.data.statuses[i].created_at);
-                xAxis[i] = `${(dateCreated.getHours() - 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
-            }
-
-
-            chart = new Chart(ctx, {
-                type: 'line',
-
-                data: {
-                    labels: xAxis,
-                    datasets: [{
-                        label: "Retweets",
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: yAxis,
-                        display: true
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: "Trends (time)"
-                            }
-                        }],
-                        yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: "# of Retweets"
-                            }
-                        }]
-                    }
-
-                }
-            })
-        }
-
 
         function topTweetsGraph(response) {
             response.data.statuses.sort(sorting("favorite_count"));
@@ -164,6 +118,80 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 }
             });
 
+        }
+
+        $scope.lineFavorites = function () {
+            var yAxis = [], xAxis = [];
+            let filteredResult = responseData.filter(val => val.favorite_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) })
+
+            for (let i = 0; i < filteredResult.length; i++) {
+                if (i == 10) {
+                    break;
+                }
+                yAxis[i] = filteredResult[i].favorite_count;
+                let dateCreated = new Date(filteredResult[i].created_at);
+                xAxis[i] = `${(dateCreated.getHours() % 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
+            }
+
+            lineGraph.data.datasets[0].data = yAxis;
+            lineGraph.data.labels = xAxis;
+            lineGraph.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
+            lineGraph.data.datasets[0].label = "Favorites";
+            lineGraph.update();
+        }
+        $scope.lineRetweets = function () {
+            var ctx = $('#line-graph').get(0).getContext('2d');
+            let yAxis = [], xAxis = [];
+            let filteredResult = responseData.filter(val => val.retweet_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) });
+            for (let i = 0; i < filteredResult.length; i++) {
+                if (i == 10) {
+                    break;
+                }
+                yAxis[i] = filteredResult[i].retweet_count;
+                let dateCreated = new Date(filteredResult[i].created_at);
+                xAxis[i] = `${(dateCreated.getHours() % 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
+            }
+
+            if (lineGraph == null) {
+                lineGraph = new Chart(ctx, {
+                    type: 'line',
+
+                    data: {
+                        labels: xAxis,
+                        datasets: [{
+                            label: "Retweets",
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: yAxis,
+                            display: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: "Trends (time)"
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: "# of Retweets"
+                                }
+                            }]
+                        }
+
+                    }
+                })
+            }
+            else {
+                lineGraph.data.datasets[0].data = yAxis;
+                lineGraph.data.labels = xAxis;
+                lineGraph.options.scales.yAxes[0].scaleLabel.labelString = "# of Retweets"
+                lineGraph.data.datasets[0].label = "Retweets";
+                lineGraph.update();
+            }
         }
     }
 ]);
