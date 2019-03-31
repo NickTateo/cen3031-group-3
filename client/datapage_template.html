@@ -1,74 +1,85 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
 
-  <body ng-app="tweetData">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-    <div class="container-fluid" ng-controller="areaTopicController">
-      <div class="row navbar">
-        <div class="col-md-4">
-          <nav class="navbar navbar-light">
-            <a href="#">
-              <img src="logo.png" class="d-inline-block align-top logo" alt=""> <h1 class="title">TweetData</h1>
-            </a>
-          </nav>
-        </div>
-        <div class="col-md-7"></div>
-        <div class="col-md-1">
-          <div class="logout">
-              <button class="btn btn-default btn-lg">Logout</button>
-          </div>
+<body ng-app="tweetData">
+
+  <div class="container-fluid" ng-controller="areaTopicController">
+    <div class="row navbar">
+      <div class="col-md-4">
+        <nav class="navbar navbar-light">
+          <a href="#">
+            <img src="logo.png" class="d-inline-block align-top logo" alt="">
+            <h1 class="title">TweetData</h1>
+          </a>
+        </nav>
+      </div>
+      <div class="col-md-7"></div>
+      <div class="col-md-1">
+        <div class="logout">
+          <button class="btn btn-default btn-lg">Logout</button>
         </div>
       </div>
+    </div>
 
-      <!-- Topic Title -->
-      <div class="row">
-        <div class="col-md-1">
-          <button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"></span></button>
-        </div>
-        <div class="col-md-10">
-          <div class="topic-title">
+    <!-- Topic Title -->
+    <div class="row">
+      <div class="col-md-1">
+        <button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"></span></button>
+      </div>
+      <div class="col-md-10">
+        <div class="topic-title">
             <h2 class = "no-result" style="display: none">No results found, try a differnt trend/location combination!</h2>
             <div class="yes-result">
               <h2>Results for Topic: @@@</h2>
               <br>
               <h2>in location: ###</h2>
             </div>
-          </div>
-        </div>
-        <div class="col-md-1"></div>
+      	</div>
       </div>
-
-      <!-- Graphs -->
-      <div class="row">
-        <div class="col-md-6">
-          <h2>Line Graph</h2>
-          <div style="background-color:lightpink">
-            <h2 class = "no-result" style="display: none">:(</h2>
-            <canvas id="line-graph"></canvas>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <h2>Top Tweets</h2>
-          <div style="background-color:khaki">
-            <h2 class = "no-result" style="display: none">:(</h2>
-            <canvas id="top-tweets"></canvas>
-          </div>
-          <h2>Bar Graph 2</h2>
-          <div class="graph" style="background-color:lightgreen">
-            <h2 class = "no-result" style="display: none">:(</h2>
-            <canvas></canvas>
-          </div>
-        </div>
-      </div>
-
-      
+      <div class="col-md-1"></div>
     </div>
 
-  </body>
+    <!-- Graphs -->
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Line Graph</h2>
+        <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
+          <label class="btn active" ng-click="lineRetweets()">
+            <input type="radio" name="graph-filter" id="retweets-vs-time" autocomplete="off" checked>Retweets
+          </label>
+          <label class="btn" ng-click="lineFavorites()">
+            <input type="radio" name="graph-filter" id="likes-vs-time" autocomplete="off">Favorites
+          </label>
+        </div>
+        <div style="background-color:lightpink">
+          <h2 class = "no-result" style="display: none">:(</h2>
+          <canvas id="line-graph"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>Top Tweets</h2>
+        <div style="background-color:khaki">
+          <h2 class = "no-result" style="display: none">:(</h2>
+          <canvas id="top-tweets"></canvas>
+        </div>
+        <h2>Bar Graph 2</h2>
+        <div style="background-color:lightgreen">
+          <h2 class = "no-result" style="display: none">:(</h2>
+          <canvas></canvas>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</body>
+
 </html>
 
 <style>
@@ -76,37 +87,37 @@
     background-color: #e3f2fd;
   }
 
-  .logo{
+  .logo {
     height: 75px;
     width: 144px;
   }
 
-  .title{
+  .title {
     display: inline;
     font-size: 40px;
   }
 
-  .topic-title{
+  .topic-title {
     text-align: left;
     width: 40%;
     margin: -30px auto 25px auto;
   }
 
-  .topic-title > h2 {
+  .topic-title>h2 {
     margin-bottom: -20px;
     /*padding-top: 0px;*/
   }
 
-  .table-wrapper{
+  .table-wrapper {
     height: 200px;
     overflow: auto;
   }
 
-  .graph{
+  .graph {
     height: 400px;
   }
 
-  .refine-area{
+  .refine-area {
     margin: 10px auto;
   }
 </style>
@@ -129,7 +140,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <!-- Our Logic -->
 <script src="js/app.js"></script>
