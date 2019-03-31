@@ -111,7 +111,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     data: {
                         labels: labelName,
                         datasets: [{
-                            label: '',
+                            label: 'Favorites',
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
                             data: labelPop,
@@ -145,7 +145,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             barGraphTweets.data.datasets[0].data = labelPop;
             barGraphTweets.data.labels = labelName;
             barGraphTweets.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
-            barGraphTweets.data.datasets[0].label = "";
+            barGraphTweets.data.datasets[0].label = "Favorites";
             barGraphTweets.update();
             }
         }
@@ -195,7 +195,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             barGraphTweets.data.datasets[0].data = labelPop;
             barGraphTweets.data.labels = labelName;
             barGraphTweets.options.scales.yAxes[0].scaleLabel.labelString = "# of Retweets"
-            barGraphTweets.data.datasets[0].label = "";
+            barGraphTweets.data.datasets[0].label = "Retweets";
             barGraphTweets.update();
 
         }

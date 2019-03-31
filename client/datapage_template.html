@@ -35,9 +35,7 @@
         <div class="topic-title">
             <h2 class = "no-result" style="display: none">No results found, try a differnt trend/location combination!</h2>
             <div class="yes-result">
-              <h2>Results for Topic: @@@</h2>
-              <br>
-              <h2>in location: ###</h2>
+              <h2>Results for {{topic}} in {{place}}</h2>
             </div>
       	</div>
       </div>
@@ -47,7 +45,7 @@
     <!-- Graphs -->
     <div class="row">
       <div class="col-md-6">
-        <h2>Line Graph</h2>
+        <h2>Tweets By The Hour</h2>
         <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
           <label class="btn active" ng-click="lineRetweets()">
             <input type="radio" name="graph-filter" id="retweets-vs-time" autocomplete="off" checked>Retweets
