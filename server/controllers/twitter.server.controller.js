@@ -151,11 +151,15 @@ exports.areaTopicTweets = function (req, res, next) {
         var searchLocation = coord.latitude+','+coord.longitude+',10mi';
         // console.log("search location: "+searchLocation);
         var searchQuery = " -RT " + topic;
-        // console.log("search query: " + searchQuery);
+        console.log("search query: " + searchQuery);
         client.get('search/tweets', {q: searchQuery, geocode: searchLocation}, function(error, response){
             if(error){
                 console.log("error getting tweet data about trend in specific location");
                 return res.status(200).json("could not get tweet data about trend in specific location");
+            }
+            if(response.statuses.length == 0){
+                console.log("no tweets found");
+                return res.status(200).json("topic has no tweets to show");
             }
             return res.status(200).json(response);            
         });

@@ -10,8 +10,12 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
         }
 
         Twitter.areaTopic(place, topic).then((response) => {
-            console.log("Called this on init with values " + place + " and " + topic);
-            // console.log(response.data.statuses[0].user.name + "'s tweet got " + response.data.statuses[0].favorite_count + " favorites");
+            console.log(response);
+            if(response.data == "topic has no tweets to show"){
+                console.log("yeah no tweets to show");
+                emptyData();
+                return;
+            }
             topTweetsGraph(response);
             populateLineGraph(response);
         });
@@ -26,6 +30,17 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 }
                 return 0;
             }
+        }
+
+        function emptyData(){
+            console.log("in the emptyData function");
+            var no_result = document.getElementsByClassName("no-result");
+            for(var i = 0; i < no_result.length; i++){
+                no_result[i].style.display="block";
+            }
+            var yes_result = document.getElementsByClassName("yes-result");
+            yes_result[0].style.display="none";
+            return;
         }
 
         function populateLineGraph(response) {

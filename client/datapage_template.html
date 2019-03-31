@@ -31,9 +31,12 @@
         </div>
         <div class="col-md-10">
           <div class="topic-title">
-            <h2>Results for Topic: @@@</h2>
-            <br>
-            <h2>in location: ###</h2>
+            <h2 class = "no-result" style="display: none">No results found, try a differnt trend/location combination!</h2>
+            <div class="yes-result">
+              <h2>Results for Topic: @@@</h2>
+              <br>
+              <h2>in location: ###</h2>
+            </div>
           </div>
         </div>
         <div class="col-md-1"></div>
@@ -44,16 +47,19 @@
         <div class="col-md-6">
           <h2>Line Graph</h2>
           <div style="background-color:lightpink">
+            <h2 class = "no-result" style="display: none">:(</h2>
             <canvas id="line-graph"></canvas>
           </div>
         </div>
         <div class="col-md-6">
           <h2>Top Tweets</h2>
           <div style="background-color:khaki">
+            <h2 class = "no-result" style="display: none">:(</h2>
             <canvas id="top-tweets"></canvas>
           </div>
           <h2>Bar Graph 2</h2>
-          <div style="background-color:lightgreen">
+          <div class="graph" style="background-color:lightgreen">
+            <h2 class = "no-result" style="display: none">:(</h2>
             <canvas></canvas>
           </div>
         </div>
