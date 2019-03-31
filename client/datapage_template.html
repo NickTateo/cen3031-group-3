@@ -63,6 +63,14 @@
       </div>
       <div class="col-md-6">
         <h2>Top Tweets</h2>
+        <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
+          <label class="btn" ng-click="barTweetsRetweets()">
+            <input type="radio" name="graph-filter" id="retweets-vs-tweet" autocomplete="off">Retweets
+          </label>
+          <label class="btn active" ng-click="barTweetsFavorites()">
+            <input type="radio" name="graph-filter" id="likes-vs-tweet" autocomplete="off" checked>Favorites
+          </label>
+        </div>
         <div style="background-color:khaki">
           <h2 class = "no-result" style="display: none">:(</h2>
           <canvas id="top-tweets"></canvas>
