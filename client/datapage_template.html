@@ -35,7 +35,7 @@
         <div class="topic-title">
             <h2 class = "no-result" style="display: none">No results found, try a differnt trend/location combination!</h2>
             <div class="yes-result">
-              <h2>Results for {{topic}} in {{place}}</h2>
+              <h1>Results for {{topic}} in {{place}}</h1>
             </div>
       	</div>
       </div>
@@ -73,10 +73,18 @@
           <h2 class = "no-result" style="display: none">:(</h2>
           <canvas id="top-tweets"></canvas>
         </div>
-        <h2>Bar Graph 2</h2>
+        <h2>Top Users</h2>
+        <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
+          <label class="btn active" ng-click="barUsersFollowers()">
+            <input type="radio" name="graph-filter" id="users-vs-followers" autocomplete="off" checked>Followers
+          </label>
+          <label class="btn" ng-click="barUsersTweets()">
+            <input type="radio" name="graph-filter" id="users-vs-tweets" autocomplete="off">Tweets
+          </label>
+        </div>
         <div style="background-color:lightgreen">
           <h2 class = "no-result" style="display: none">:(</h2>
-          <canvas></canvas>
+          <canvas id="top-users"></canvas>
         </div>
       </div>
     </div>

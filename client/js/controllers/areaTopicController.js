@@ -1,7 +1,7 @@
 angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter',
     ($scope, Twitter) => {
 
-        var responseData, lineGraph, barGraphTweets = null;
+        var responseData, lineGraph, barGraphTweets, barGraphUsers = null;
         var place = sessionStorage.getItem('place');
         var topic = sessionStorage.getItem('topic');
 
@@ -25,6 +25,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             responseData = response.data.statuses;
             $scope.barTweetsFavorites();
             $scope.lineRetweets();
+            $scope.barUsersFollowers();
         });
 
         function sorting(sortParam) {
@@ -37,6 +38,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 }
                 return 0;
             }
+
         }
 
         function emptyData(){
@@ -142,11 +144,11 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             }
             else{
                 // ??????
-            barGraphTweets.data.datasets[0].data = labelPop;
-            barGraphTweets.data.labels = labelName;
-            barGraphTweets.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
-            barGraphTweets.data.datasets[0].label = "Favorites";
-            barGraphTweets.update();
+                barGraphTweets.data.datasets[0].data = labelPop;
+                barGraphTweets.data.labels = labelName;
+                barGraphTweets.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
+                barGraphTweets.data.datasets[0].label = "Favorites";
+                barGraphTweets.update();
             }
         }
 
@@ -273,5 +275,151 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 lineGraph.update();
             }
         }
+    
+
+        $scope.barUsersFollowers = function(){
+            responseData.sort((a, b) => parseFloat(b.user.followers_count) - parseFloat(a.user.followers_count));
+            console.log(responseData);
+            //remove duplicate users
+            var newResponse = JSON.parse(JSON.stringify(responseData));
+            var cap = newResponse.length;
+            for(var i = 1; i < cap; i++){
+                if(newResponse[i].user.screen_name == newResponse[i-1].user.screen_name){
+                    console.log("cutting stuff right now!")
+                    newResponse.splice(i, 1);    //remove element at ith index
+                    cap--;
+                    i--;
+                }
+            }
+
+            var labelName = [], labelPop = [];
+            var userAmount = newResponse.length;
+            var firstZero = -1;
+            if (userAmount >= 10) {
+                userAmount = 10;
+                for (var i = 0; i < 10; i++) {
+                    labelName[i] = "@"+newResponse[i].user.screen_name;
+                    labelPop[i] = newResponse[i].user.followers_count;
+                    if (firstZero == -1 && newResponse[i].user.followers_count == 0) {
+                        firstZero = i;
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < userAmount; i++) {
+                    labelName[i] = "@"+newResponse[i].user.screen_name
+                    labelPop[i] = newResponse[i].user.followers_count;
+                    if (firstZero == -1 && newResponse[i].user.followers_count == 0) {
+                        firstZero = i;
+                    }
+                }
+            }
+
+            console.log("\nWith cutting repeating users")
+            console.log(labelPop);
+            console.log(labelName);
+            console.log("first zero: " + firstZero);
+            console.log(newResponse);
+
+            var ctx = document.getElementById('top-users').getContext('2d');
+            if(!barGraphUsers){
+                barGraphUsers = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'bar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: labelName,
+                        datasets: [{
+                            label: 'Top Users by Followers',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: labelPop,
+                            display: true
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                scaleLabel:
+                                {
+                                    display: true,
+                                    labelString: "Users"
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel:
+                                {
+                                    display: true,
+                                    labelString: "# of Followers"
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+            else{
+                // ??????
+                barGraphUsers.data.datasets[0].data = labelPop;
+                barGraphUsers.data.labels = labelName;
+                barGraphUsers.options.scales.yAxes[0].scaleLabel.labelString = "# of Followers"
+                barGraphUsers.data.datasets[0].label = "Top Users by Followers";
+                barGraphUsers.update();
+            }
+
+        }
+
+        $scope.barUsersTweets = function(){
+            responseData.sort((a, b) => parseFloat(b.user.statuses_count) - parseFloat(a.user.statuses_count));
+            //remove duplicate users
+            var newResponse = JSON.parse(JSON.stringify(responseData));
+            var cap = newResponse.length;
+            for(var i = 1; i < cap; i++){
+                if(newResponse[i].user.screen_name == newResponse[i-1].user.screen_name){
+                    console.log("cutting stuff right now!")
+                    newResponse.splice(i, 1);    //remove element at ith index
+                    cap--;
+                    i--;
+                }
+            }
+
+            var labelName = [], labelPop = [];
+            var userAmount = newResponse.length;
+            var firstZero = -1;
+            if (userAmount >= 10) {
+                userAmount = 10;
+                for (var i = 0; i < 10; i++) {
+                    labelName[i] = "@"+newResponse[i].user.screen_name;
+                    labelPop[i] = newResponse[i].user.statuses_count;
+                    if (firstZero == -1 && newResponse[i].user.statuses_count == 0) {
+                        firstZero = i;
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < userAmount; i++) {
+                    labelName[i] = "@"+newResponse[i].user.screen_name;
+                    labelPop[i] = newResponse[i].user.statuses_count;
+                    if (firstZero == -1 && newResponse[i].user.statuses_count == 0) {
+                        firstZero = i;
+                    }
+                }
+            }
+
+            console.log("\nWith cutting repeating users")
+            console.log(labelPop);
+            console.log(labelName);
+            console.log("first zero: " + firstZero);
+            console.log(newResponse);
+
+            barGraphUsers.data.datasets[0].data = labelPop;
+            barGraphUsers.data.labels = labelName;
+            barGraphUsers.options.scales.yAxes[0].scaleLabel.labelString = "# of Tweets"
+            barGraphUsers.data.datasets[0].label = "Top Users by Tweet Count";
+            barGraphUsers.update();
+        }
+
     }
 ]);
