@@ -18,7 +18,7 @@ var loginSchema = new Schema({
 	hash: {
 		type: String,
 		required: true
-	}
+	},
 	/*
 	salt: {
 		type: String,
@@ -44,13 +44,13 @@ loginSchema.pre('save', function(next) {
 });
 
 //TODO
-
+/*
 loginSchema.methods.savePassword = function(password) {
 	this.salt = crypto.randomBytes().toString(16);
 	
 	this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString(16);
 };
-
+*/
 /*
 loginSchema.methods.validatePassword = function(password) {
 	vHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString(16);

@@ -9,13 +9,13 @@ var logctrl = require('../controllers/login.server.controller.js'),
 */
 router.route('/')
 	//TODO
-	.get(/*determine which logcrtl method goes here*/)
-	.post(/*determine which logcrtl method goes here*/);
+	.get(/*determine which method, if any, goes here*/)
+	.post(/*determine which method, if any, goes here*/);
 
 /* The ':' specifies a URL parameter. */
-router.route('/:username')
-	.get(logcrtl.read)
-	.put(logcrtl.update)
+router.route('/:username/:hash')
+	//.get(logctrl.read)
+	.post(logctrl.simpleLogin);
 
 	//TODO
 	//Will there be any need to delete login info?
@@ -34,6 +34,9 @@ router.route('/:username')
 	It will then pass control to the routing function specified above, where it will either 
 	get, update, or delete that specific listing (depending on the HTTP verb specified)
 */
-router.param('username', logctrl.login);
+/*
+router.param('username', logctrl.simplLogin);
+router.param('pass', logctrl.simpleLogin);
+*/
 
 module.exports = router;

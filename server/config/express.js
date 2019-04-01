@@ -4,10 +4,9 @@ var path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     config = require('./config'),
-    //listingsRouter = require('../routes/listings.server.routes'),
+    listingsRouter = require('../routes/listings.server.routes'),
 	loginRouter = require('../routes/login.server.routes.js'),
     CORS = require('cors');
-	
 
 module.exports.init = function() {
 	//connect to database
@@ -29,20 +28,25 @@ module.exports.init = function() {
 	//app.user('api', routesApi);
 
 	/** TODO
-	Serve static files */
-	app.use('/', express.static(path.join(__dirname,'./../../client'))); //specify login.html?
+	Serve static files 
+	Direct to login.html?
+	*/
+	app.use('/', express.static(path.join(__dirname,'./../../client/')));
 	
 	/** TODO
 	Use the listings router for requests to the api
-	Use the login router for auth requests
+	Use the login router for authorization requests 
 	*/
-	//app.use('/api/listings',listingsRouter);
-	app.use('auth', loginRouter);
+	app.use('/api/listings',listingsRouter);
+	app.use('/auth', loginRouter);
 
 	/** TODO
-	Go to homepage for all routes not specified */ 
-	app.all('*', (req, res) => {
-		res.redirect('/');
+	Go to homepage for all routes not specified 
+	*/ 
+	//redirect to login
+	app.all('*', function(req, res) {
+		//res.redirect('/');
+		res.sendFile(path.resolve('client/login.html'));
 	});
 
 	return app;

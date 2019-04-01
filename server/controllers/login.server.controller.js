@@ -1,18 +1,23 @@
 var mongoose = require('mongoose');
 //var passport = require('passport');
 var config = require('../config/config');
-var Logins = mongoose.model('Logins');
+var Login = require('../models/login.server.model.js');
 
 //TODO
 //exports.create;
 
 //exports.read
 
+module.exports.simpleLogin = function(req, res) {
+	console.log("SimpleLogin executed, request: " + req.body);
+	res.status(200);
+};
+
 //TODO
-module.exports.register = function(res, req) {
+module.exports.register = function(req, res) {
 	
-	var user = new Logins();
-	
+	var user = new Login();
+		
 	user.username = req.body.username;
 	user.hash = req.body.hash;
 	//user.name = req.body.name
@@ -56,5 +61,4 @@ module.exports.login = function(req, res){
 		  res.status(401).json(info);
 		}
 	})(req, res);
-
 };

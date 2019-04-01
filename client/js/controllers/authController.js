@@ -5,7 +5,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
         //     $('#login-card').toggleClass("flipped");
         // });
 
-        $scope.flip = () => {
+        $scope.flip = function(){
             if ($scope.flipClass !== "flipped") {
 				$scope.flipClass = "flipped";
             }
@@ -14,35 +14,35 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
             }
         }
 
-        $scope.login = () => {
-            /*
-			Auth.login($scope.login.user, $scope.hash_pwd($scope.user.pwd)).then((result) => {
-                if (result.status == 200) {
+        $scope.login = function(){
+			Auth.login($scope.login.user, $scope.login.pwd).then(function(response) {
                     //Allow app access
-					console.log("Access granted");
-                }
-                else {
+					alert("Access granted");
+                },
+                function(error) {
                     //Compose login failure message
-					console.log("\nnah son");
-                }
-            })
-			*/
-			console.log("\nUser: " + $scope.login.user + " \nPwd: " + $scope.hash_pwd($scope.user.pwd));
+					alert("Invalid Login");
+				}
+			);
+			//REMOVE - debug
+			//console.log("\nUser: " + $scope.login.user + " \nPwd: " + $scope.hash_pwd($scope.login.pwd));
         }
 
-        $scope.signup = () => {
-            Auth.signup($scope.signup.user, $scope.hash_pwd($scope.signup.pwd)).then((result) => {
+        $scope.signup = function(){
+            Auth.signup($scope.signup.user, $scope.signup.pwd).then((result) => {
 				if (result.status == 200) {
 					//Are we logging the user in automatically after signup?
 					//Or do we force them to login manually?
+					alert("Signup granted");
 				}
 				else {
 					//Compose user creation message
-					$scope.login.pwd = "";
+					alert("Invalid Signup");
 				}
-            })
+            });
         }
 		
+		/*
 		$scope.hash_pwd = function(pass){
 			//this.salt = crypto.randomBytes().toString('hex');
 			var salt = '123456ABCDEF'
@@ -53,6 +53,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
 			
 			return hash;
 		}
+		*/
 
 		/*
 		$scope.isUserSignedIn = false;
