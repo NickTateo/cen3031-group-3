@@ -5,35 +5,35 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
 
     var canvas = document.getElementById("test-chart");
     canvas.addEventListener('click', clickHndlr, false);
-    function clickHndlr(event){
+    function clickHndlr(event) {
       var selected = chart.getElementAtEvent(event);
-      if(selected.length == 0){
+      if (selected.length == 0) {
         console.log("clicked on unimportant area");
       }
-      else{
-        console.log("trend is "+selected[0]._model.label);
+      else {
+        console.log("trend is " + selected[0]._model.label);
         sessionStorage.setItem("topic", selected[0]._model.label);
         $window.location.href = '../../datapage_template.html';
       }
     };
 
-    $scope.searchTrend = function() {
+    $scope.searchTrend = function () {
       var userInput = $scope.userPlace;
       console.log("clicked button");
       sessionStorage.setItem("place", userInput);
-      Twitter.getTrends(userInput).then(function(response){
-        if(graphExists){
+      Twitter.getTrends(userInput).then(function (response) {
+        if (graphExists) {
           var tmpChart = chart;
           chart = null;
           tmpChart.destroy();
         }
         $scope.listings = response.data;
-        if($scope.listings == "Sorry, That location is either not trending or is not valid."){
+        if ($scope.listings == "Sorry, That location is either not trending or is not valid.") {
           graphExists = false;
-          document.getElementById('no-results').style.display="block";
+          document.getElementById('no-results').style.display = "block";
         }
-        else{
-          document.getElementById('no-results').style.display="none";
+        else {
+          document.getElementById('no-results').style.display = "none";
           //console.log($scope.listings[0].trends[3]);
           var labelName = [], labelPop = [];
           for (var i = 0; i < 10; i++) {
@@ -51,7 +51,7 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
             data: {
               labels: labelName,
               datasets: [{
-                label: 'Trending Topics in '+$scope.listings[0].locations[0].name,
+                label: 'Trending Topics in ' + $scope.listings[0].locations[0].name,
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 data: labelPop,
@@ -63,32 +63,38 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
             options: {
               scales: {
                 xAxes: [{
-                  scaleLabel :
+                  scaleLabel:
                   {
                     display: true,
                     labelString: "Trends"
                   }
                 }],
                 yAxes: [{
-                  scaleLabel : 
+                  scaleLabel:
                   {
-                    display:true,
+                    display: true,
                     labelString: "Tweet Volume"
                   }
                 }]
               }
             }
           });
-          graphExists = true;  
-        } 
+          graphExists = true;
+        }
       }, function (error) {
         console.log('Unable to retrieve listings:', error);
-        });
+      });
 
-      
-      
+
+
     };
 
+
+    let place = sessionStorage.getItem('place');
+    if (place != null) {
+      $scope.userPlace = place;
+      $scope.searchTrend();
+    }
     //$scope.detailedInfo = undefined;
 
     // $scope.addListing = function () {
