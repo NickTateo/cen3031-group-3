@@ -27,10 +27,13 @@
         <a href="index.html" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"></span></a>
       </div>
       <div class="col-md-10">
-        <div class="topic-title">
-          <h2 class="no-result" style="display: none">No results found, try a differnt trend/location combination!</h2>
-          <div class="yes-result">
-            <h2>Results for {{topic}} in {{place}}</h2>
+        <div class="card align-items-center topmargin-sm">
+          <div class="card-body">
+            <h2 class="no-result" style="display: none">No results found, try a differnt trend/location combination!
+            </h2>
+            <div class="yes-result align-items-center">
+              <h2>Results for {{topic}} <span ng-if="areaSearch">in {{place}}</span></h2>
+            </div>
           </div>
         </div>
       </div>
@@ -40,7 +43,7 @@
     <!-- Graphs -->
     <div class="row">
       <div class="col-md-6">
-        <div class="card">
+        <div class="card topmargin-sm">
           <div class="card-body">
             <h2 class="card-title">Tweets By The Hour</h2>
             <div class="btn-group btn-group-toggle hide-btn float-right" data-toggle="buttons">
@@ -59,7 +62,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="card">
+        <div class="card topmargin-sm">
           <div class="card-body">
             <h2>Top Tweets</h2>
             <div class="btn-group btn-group-toggle hide-btn float-right" data-toggle="buttons">

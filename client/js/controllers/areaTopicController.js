@@ -13,6 +13,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
 
         if(!place){
             // topicOnly(topic);
+            $scope.areaSearch = false;
             $scope.topic = topic;
             Twitter.trendTopic(topic).then((response) => {
                 console.log(response);
@@ -30,6 +31,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
         }
         else{
             // topicAndArea(place, topic);
+            $scope.areaSearch = true;
             $scope.topic = topic;
             $scope.place = place;
             Twitter.areaTopic(place, topic).then((response) => {
