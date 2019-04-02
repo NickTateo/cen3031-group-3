@@ -4,20 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body ng-app="tweetData">
-    <nav class="navbar navbar-light">
-        <a class="navbar-brand" href="index.html">
-          <img src="logo.png" width="60" height="40" alt="Home">
-          TweetData
-        </a>
-          <div class="logout">
-            <button class="btn btn-default btn-lg">Logout</button>
-          </div>
-      </nav>
+  <nav class="navbar shadow-sm navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="logo.png" class="logo" alt="Home">
+      TweetData
+    </a>
+    <div class="logout">
+      <button class="btn btn-outline-secondary">Logout</button>
+    </div>
+  </nav>
   <div class="container-fluid" ng-controller="areaTopicController">
-    
 
 
     <!-- Topic Title -->
@@ -29,56 +30,68 @@
         <div class="topic-title">
           <h2 class="no-result" style="display: none">No results found, try a differnt trend/location combination!</h2>
           <div class="yes-result">
-            <h1>Results for {{topic}} in {{place}}</h1>
+            <h2>Results for {{topic}} in {{place}}</h2>
           </div>
         </div>
       </div>
-      <div class="col-md-1"></div>
+
     </div>
 
     <!-- Graphs -->
     <div class="row">
       <div class="col-md-6">
-        <h2>Tweets By The Hour</h2>
-        <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
-          <label class="btn active" ng-click="lineRetweets()">
-            <input type="radio" name="graph-filter" id="retweets-vs-time" autocomplete="off" checked>Retweets
-          </label>
-          <label class="btn" ng-click="lineFavorites()">
-            <input type="radio" name="graph-filter" id="likes-vs-time" autocomplete="off">Favorites
-          </label>
-        </div>
-        <div style="background-color:lightpink">
-          <h2 class="no-result" style="display: none">:(</h2>
-          <canvas id="line-graph"></canvas>
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Tweets By The Hour</h2>
+            <div class="btn-group btn-group-toggle hide-btn float-right" data-toggle="buttons">
+              <label class="btn btn-outline-secondary active" ng-click="lineRetweets()">
+                <input type="radio" name="graph-filter" id="retweets-vs-time" autocomplete="off" checked>Retweets
+              </label>
+              <label class="btn btn-outline-secondary" ng-click="lineFavorites()">
+                <input type="radio" name="graph-filter" id="likes-vs-time" autocomplete="off">Favorites
+              </label>
+            </div>
+            <div>
+              <h2 class="no-result" style="display: none">:(</h2>
+              <canvas id="line-graph"></canvas>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-md-6">
-        <h2>Top Tweets</h2>
-        <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
-          <label class="btn" ng-click="barTweetsRetweets()">
-            <input type="radio" name="graph-filter" id="retweets-vs-tweet" autocomplete="off">Retweets
-          </label>
-          <label class="btn active" ng-click="barTweetsFavorites()">
-            <input type="radio" name="graph-filter" id="likes-vs-tweet" autocomplete="off" checked>Favorites
-          </label>
+        <div class="card">
+          <div class="card-body">
+            <h2>Top Tweets</h2>
+            <div class="btn-group btn-group-toggle hide-btn float-right" data-toggle="buttons">
+              <label class="btn btn-outline-secondary" ng-click="barTweetsRetweets()">
+                <input type="radio" name="graph-filter" id="retweets-vs-tweet" autocomplete="off">Retweets
+              </label>
+              <label class="btn btn-outline-secondary active" ng-click="barTweetsFavorites()">
+                <input type="radio" name="graph-filter" id="likes-vs-tweet" autocomplete="off" checked>Favorites
+              </label>
+            </div>
+            <div>
+              <h2 class="no-result" style="display: none">:(</h2>
+              <canvas id="top-tweets"></canvas>
+            </div>
+          </div>
         </div>
-        <div style="background-color:khaki">
-          <h2 class="no-result" style="display: none">:(</h2>
-          <canvas id="top-tweets"></canvas>
-        </div>
-        <h2>Top Users</h2>
-        <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
-          <label class="btn active" ng-click="barUsersFollowers()">
-            <input type="radio" name="graph-filter" id="users-vs-followers" autocomplete="off" checked>Followers
-          </label>
-          <label class="btn" ng-click="barUsersTweets()">
-            <input type="radio" name="graph-filter" id="users-vs-tweets" autocomplete="off">Tweets
-          </label>
-        </div>
-        <div style="background-color:lightgreen">
-          <h2 class="no-result" style="display: none">:(</h2>
-          <canvas id="top-users"></canvas>
+        <div class="card topmargin-lg">
+          <div class="card-body">
+            <h2>Top Users</h2>
+            <div class="btn-group btn-group-toggle hide-btn float-right" data-toggle="buttons">
+              <label class="btn btn-outline-secondary active" ng-click="barUsersFollowers()">
+                <input type="radio" name="graph-filter" id="users-vs-followers" autocomplete="off" checked>Followers
+              </label>
+              <label class="btn btn-outline-secondary" ng-click="barUsersTweets()">
+                <input type="radio" name="graph-filter" id="users-vs-tweets" autocomplete="off">Tweets
+              </label>
+            </div>
+            <div>
+              <h2 class="no-result" style="display: none">:(</h2>
+              <canvas id="top-users"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -89,44 +102,6 @@
 </body>
 
 </html>
-
-<style>
-
-
-  .logo {
-    height: 75px;
-    width: 144px;
-  }
-
-  .title {
-    display: inline;
-    font-size: 40px;
-  }
-
-  .topic-title {
-    text-align: left;
-    width: 40%;
-    margin: -30px auto 25px auto;
-  }
-
-  .topic-title>h2 {
-    margin-bottom: -20px;
-    /*padding-top: 0px;*/
-  }
-
-  .table-wrapper {
-    height: 200px;
-    overflow: auto;
-  }
-
-  .graph {
-    height: 400px;
-  }
-
-  .refine-area {
-    margin: 10px auto;
-  }
-</style>
 
 
 
@@ -140,7 +115,7 @@
 
 <!-- BOOTSTRAP -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

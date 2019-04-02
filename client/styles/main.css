@@ -1,3 +1,7 @@
+body, html, container-fluid {
+  height: 100%;
+}
+
 #searchBar {
   margin: 15px 10px;
 }
@@ -7,30 +11,78 @@
   overflow: auto;
 }
 
-.table-row{
+.table-row {
   cursor: pointer;
 }
 
-.border{
+.border {
   border: 1px #337ab7;
   border-style: solid;
 }
-.bold{
+
+.bold {
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.topmargin{
-  margin-top: 5px;
+.float-right {
+  float: right;
 }
 
-.delete-icon:hover{
+.topmargin-lg {
+  margin-top: 30px;
+}
+
+.topmargin-sm{
+  margin-top:15px;
+}
+
+.delete-icon:hover {
   color: #337ab7;
 }
 
-input:focus::placeholder{
-  color:#337ab7;
+input:focus::placeholder {
+  color: #337ab7;
 }
+
 .navbar {
   background-color: #e3f2fd;
+}
+
+.btn-group-toggle>label:hover {
+  cursor: pointer;
+}
+
+.logo {
+  height: 40px;
+  width: 60px;
+}
+
+.title {
+  display: inline;
+  font-size: 40px;
+}
+
+.topic-title {
+  text-align: left;
+  width: 40%;
+  margin: -30px auto 25px auto;
+}
+
+.topic-title>h2 {
+  margin-bottom: -20px;
+  /*padding-top: 0px;*/
+}
+
+.table-wrapper {
+  height: 200px;
+  overflow: auto;
+}
+
+.graph {
+  height: 400px;
+}
+
+.refine-area {
+  margin: 10px auto;
 }
