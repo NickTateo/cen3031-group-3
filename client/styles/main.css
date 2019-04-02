@@ -31,3 +31,6 @@
 input:focus::placeholder{
   color:#337ab7;
 }
+.navbar {
+  background-color: #e3f2fd;
+}

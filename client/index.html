@@ -7,21 +7,43 @@
 </head>
 
 <body ng-app="tweetData">
-  <div class="container" ng-controller="TwitterController">
-    <div class="row">
-      Place: <input type="text" ng-model="userPlace" ng-keyup="$event.keyCode == 13 ? searchTrend() : null"><button
-        ng-click="searchTrend()">See Trends</button>
-      <canvas id="test-chart"></canvas>
-      <div id="no-results" style="display: none">
-        <h1>:( Sorry!</h1>
-        <h2>Your search either has a typo or has no topics currently trending</h2>
+  <nav class="navbar navbar-expand navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="logo.png" width="60" height="40" alt="Home">
+      TweetData
+    </a>
+    <div class="logout">
+      <button class="btn btn-default btn-lg">Logout</button>
+    </div>
+  </nav>
+  <div class="container-fluid" ng-controller="TwitterController">>
+
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div class="row align-items-center">
+          <div class="input-group input-group-lg md-5">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Search by:</button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="">Topic</a>
+                <a class="dropdown-item" href="">Area</a>
+              </div>
+            </div>
+            <input placeholder="Query" type="text" class="form-control" ng-model="userPlace"
+              ng-keyup="$event.keyCode == 13 ? searchTrend() : null">
+            <div class="input-group-append">
+              <button ng-click="searchTrend()" class="btn btn-outline-secondary">See Trends</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="row">
-      Topic: <input type="text" ng-model="userTopic"><button
-        ng-click="searchTopic()">See Trends</button>
+    <canvas id="test-chart"></canvas>
+    <div id="no-results" style="display: none">
+      <h1>:( Sorry!</h1>
+      <h2>Your search either has a typo or has no topics currently trending</h2>
     </div>
+  </div>
   </div>
 
 
@@ -31,11 +53,14 @@
 
   <!-- Bootstrap -->
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+  <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 
   <!-- Charts.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
