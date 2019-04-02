@@ -2,34 +2,40 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body ng-app="tweetData">
-  <nav class="navbar navbar-expand navbar-light">
+  <nav class="navbar shadow-sm navbar-light">
     <a class="navbar-brand" href="index.html">
-      <img src="logo.png" width="60" height="40" alt="Home">
+      <img src="logo.png" class="logo" alt="Home">
       TweetData
     </a>
+
     <div class="logout">
-      <button class="btn btn-default btn-lg">Logout</button>
+      <button class="btn btn-outline-secondary btn">Logout</button>
     </div>
   </nav>
-  <div class="container-fluid" ng-controller="TwitterController">>
+  <div class="container-fluid" ng-controller="TwitterController">
 
     <div class="row justify-content-center">
-      <div class="col-8">
+      <div class="col-8 align-items-center">
         <div class="row align-items-center">
-          <div class="input-group input-group-lg md-5">
+          <div class="input-group input-group-lg topmargin-lg">
             <div class="input-group-prepend">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Search by:</button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="">Topic</a>
-                <a class="dropdown-item" href="">Area</a>
+              <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
+                <label class="btn btn-outline-secondary active" ng-click="setSearch(false)">
+                  <input type="radio" name="topic-button" autocomplete="off" checked>Topic
+                </label>
+                <label class="btn btn-outline-secondary" ng-click="setSearch(true)">
+                  <input type="radio" name="area-button" autocomplete="off">Area
+                </label>
               </div>
             </div>
-            <input placeholder="Query" type="text" class="form-control" ng-model="userPlace"
+            <input placeholder="Keyword" type="text" class="form-control" ng-model="userPlace"
               ng-keyup="$event.keyCode == 13 ? searchTrend() : null">
             <div class="input-group-append">
               <button ng-click="searchTrend()" class="btn btn-outline-secondary">See Trends</button>
@@ -38,40 +44,45 @@
         </div>
       </div>
     </div>
-    <canvas id="test-chart"></canvas>
-    <div id="no-results" style="display: none">
-      <h1>:( Sorry!</h1>
-      <h2>Your search either has a typo or has no topics currently trending</h2>
+    <div class="row justify-content-center">
+      <div class="col-8 topmargin-lg">
+        <canvas id="test-chart"></canvas>
+        <div id="no-results" style="display: none">
+          <h1>:( Sorry!</h1>
+          <h2>Your search either has a typo or has no topics currently trending</h2>
+        </div>
+      </div>
     </div>
   </div>
   </div>
 
 
-  <!-- Angular -->
-  <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
-
-
-  <!-- Bootstrap -->
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- Latest compiled JavaScript -->
-  <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-
-  <!-- Charts.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-  <!-- Our Logic -->
-  <script src="js/app.js"></script>
-  <script src="js/controllers/TwitterController.js"></script>
-  <script src="js/factories/TwitterFactory.js"></script>
 
 
 
 </body>
 
 </html>
+
+<!-- Angular -->
+<script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+
+
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+<!-- Charts.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!-- Our Logic -->
+<script src="js/app.js"></script>
+<script src="js/controllers/TwitterController.js"></script>
+<script src="js/factories/TwitterFactory.js"></script>

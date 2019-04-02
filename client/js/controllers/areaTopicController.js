@@ -114,8 +114,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                         labels: labelName,
                         datasets: [{
                             label: 'Favorites',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(240, 230, 140)',
+                            borderColor: 'rgb(240, 230, 140)',
                             data: labelPop,
                             display: true
                         }]
@@ -332,8 +332,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                         labels: labelName,
                         datasets: [{
                             label: 'Top Users by Followers',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(144, 238, 144)',
+                            borderColor: 'rgb(144, 238, 144)',
                             data: labelPop,
                             display: true
                         }]
