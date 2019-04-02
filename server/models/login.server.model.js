@@ -11,10 +11,6 @@ var loginSchema = new Schema({
 		required: true,
 		unique: true
 	},
-	/*name: {
-		type: String,
-		required: false
-	},*/
 	hash: {
 		type: String,
 		required: true
@@ -34,6 +30,14 @@ var loginSchema = new Schema({
 
 /*'pre' function that adds the updated_at (and created_at if not already there) property */
 loginSchema.pre('save', function(next) {
+	/*
+	try{
+		hashPass(hash);
+	catch(err){
+		return err;
+	}
+	*/
+	console.log('\nsave function running\n');
 	var currentTime = new Date;
 	this.updated_at = currentTime;
 	if(!this.created_at)
@@ -45,18 +49,19 @@ loginSchema.pre('save', function(next) {
 
 //TODO
 /*
-loginSchema.methods.savePassword = function(password) {
-	this.salt = crypto.randomBytes().toString(16);
+loginSchema.methods.hashPass = function(hash) {
+	//this.salt = crypto.randomBytes().toString(16);
 	
-	this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString(16);
+	this.hash = crypto.pbkdf2Sync(hash, this.salt, 1000, 64, 'sha512').toString(16);
 };
 */
-/*
-loginSchema.methods.validatePassword = function(password) {
-	vHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString(16);
+loginSchema.methods.validatePassword = function(vHash) {
+	//vHash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString(16);
+	
+	//Test without second hash
 	return this.hash === vHash;
-};
-
+}
+/*
 loginSchema.methods.generateToken = function() {
 	var expiry = new Date();
 	expiry.setDate(expiry.getDate() + 1);

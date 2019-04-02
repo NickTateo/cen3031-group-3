@@ -29,7 +29,6 @@ module.exports.init = function() {
 
 	/** TODO
 	Serve static files 
-	Direct to login.html?
 	*/
 	app.use('/', express.static(path.join(__dirname,'./../../client/')));
 	
@@ -43,7 +42,10 @@ module.exports.init = function() {
 	/** TODO
 	Go to homepage for all routes not specified 
 	*/ 
-	//redirect to login
+	//redirect to login?
+	app.all('/', function(req, res) {
+		res.sendFile(path.resolve('client/login.html'));
+	});
 	app.all('*', function(req, res) {
 		//res.redirect('/');
 		res.sendFile(path.resolve('client/login.html'));

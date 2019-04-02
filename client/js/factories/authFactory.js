@@ -1,26 +1,23 @@
 angular.module('auth').factory('Auth', function ($http) {
 
 	var auth_service = {
+		
+		/*
+		var isUserAuth = false;
+		*/
+		
         //TODO : The below api calls can and may change as we develop the api.
         login: function(username, pass) {
-			//old request format
-            //return $http.get(`/api/login?username=${username}&password=${password}`);
-			
 			//request will use auth/ path
 			console.log('Login will proceed with Usr: ' + username + ' and password hash: ' + this.hash(pass));
-			return $http.post('/auth/' + username + '/' + pass);
-			
-			/*
-			var result = {};
-			result.status = 200;
-			return result.promise;
-			*/
+			return $http.post('/auth/' + username + '/' + this.hash(pass));
         },
 
         signup: function(username, pass) {
 			//old request format
             //return $http.post(`/api/signup?username=${username}&password=${password}`);
 			console.log("Sign Up will proceed with Usr: " + username + " and password hash: " + this.hash(pass));
+			return $http.post('/auth/signup/' + username + '/' + this.hash(pass));
         },
 		
 		hash: function(pass){
