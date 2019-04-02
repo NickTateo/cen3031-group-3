@@ -166,3 +166,37 @@ exports.areaTopicTweets = function (req, res, next) {
         // return res.status(200).json("hi from backend controller with " + place + " and " + topic + " and coords: " + coord);
     });
 }
+
+function hashCheck(newTopic, hash){
+    let promise = new Promise(function(resolve, reject){
+        if(hash === "true"){
+            newTopic = "#" + newTopic;
+        }
+        resolve(newTopic);
+    })
+    return promise;
+}
+
+exports.topicTweets = function(req, res, next){
+    console.log("\nin topicTweets()!");
+    var topic = req.params.topic;
+    var isHash = req.params.isHash;
+
+    hashCheck(topic, isHash).then(function(newTopic){
+        console.log("after promise, topic is: " + newTopic);
+        var searchQuery = " -RT " + newTopic;
+        console.log("searchQuery: " + searchQuery);
+        client.get('search/tweets', {q: searchQuery, result_type: 'popular'}, function(error, response){
+            if(error){
+                console.log("error getting tweet data about trend");
+                return res.status(200).json("could not get tweet data about trend");
+            }
+            if(response.statuses.length == 0){
+                console.log("no tweets found");
+                return res.status(200).json("topic has no tweets to show");
+            }
+            return res.status(200).json(response);        
+        });
+    });
+
+}

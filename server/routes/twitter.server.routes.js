@@ -8,8 +8,12 @@ router.route('/')
 router.route('/topicByArea/:place/:topic/:isHash')
 	.get(twitter.areaTopicTweets);
 
+router.route('/trend/:topic/:isHash')
+	.get(twitter.topicTweets);
+
 router.route('/:userPlace')
 	.get(twitter.dynamicTrends);
+
 
 
 module.exports = router;

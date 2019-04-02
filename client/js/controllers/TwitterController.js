@@ -1,5 +1,5 @@
 angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', '$window',
-  function ($scope, Twitter, $window) {
+  function($scope, Twitter, $window){
     var graphExists = false;
     var chart;
 
@@ -95,55 +95,19 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
       $scope.userPlace = place;
       $scope.searchTrend();
     }
-    //$scope.detailedInfo = undefined;
 
-    // $scope.addListing = function () {
-    //   /**TODO 
-    //   *Save the article using the Listings factory. If the object is successfully 
-    //   saved redirect back to the list page. Otherwise, display the error
-    //  */
-    //   let listing = { code: $scope.code, name: $scope.name, address: $scope.address, coordinates: { latitude: $scope.lat, longitude: $scope.long } };
-    //   Listings.create(listing).then((result) => {
-    //     if (result.status == 200) {
-    //       Listings.getAll().then((result) => {
-    //         $scope.listings = result.data;
-    //       }, (error) => {
-    //         console.log("Error retrieving updated listings.", error);
-    //       })
-    //     }
-    //     else {
-    //       console.log("Error adding entry", result.status);
-    //     }
-    //   });
-    //   $scope.name = "";
-    //   $scope.code = "";
-    //   $scope.address = "";
-    //   $scope.long = "";
-    //   $scope.lat = "";
 
-    // }
+    $scope.searchTopic = function(){
+      //trying out get tweets by topic
+      sessionStorage.setItem("topic", $scope.userTopic);
+      sessionStorage.removeItem("place");
 
-    // $scope.deleteListing = function (id) {
-    //   /**TODO
-    //      Delete the article using the Listings factory. If the removal is successful, 
-    //  navigate back to 'listing.list'. Otherwise, display the error. 
-    //     */
-    //   Listings.delete(id).then((result) => {
-    //     if (result.status == 200) {
-    //       Listings.getAll().then((result) => {
-    //         $scope.listings = result.data;
-    //       }, (error) => {
-    //         console.log("Error retrieving updated listings", error);
-    //       })
-    //     }
-    //     else {
-    //       console.log("Error deleting entry", result.status);
-    //     }
-    //   });
-    // };
+      $window.location.href = '../../datapage_template.html';
 
-    // $scope.showDetails = function (index) {
-    //   $scope.detailedInfo = $scope.list[index];
-    // };
+      
+    }
+
+
+
   }
 ]);

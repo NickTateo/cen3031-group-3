@@ -22,13 +22,17 @@ angular.module('twitter').factory('Twitter', function ($http) {
       return $http.get('/api/twitter/topicByArea/' + place + '/' + topic + '/' + isHash);
     },
 
-    areaOverTime: function (place, topic) {
+    trendTopic: function(topic){
+      console.log("got to factory with topic: " + topic);
       var isHash;
       if (topic[0] == "#") {
-        topic = topic.substr(1, topic.length);
+        topic = topic.substring(1, topic.length);
         isHash = true;
       }
-      return $http.get(`/api/twitter/areaOverTime/${place}/${topic}/${isHash}`);
+      else {
+        isHash = false;
+      }
+      return $http.get('/api/twitter/trend/'+topic+'/'+isHash);
     },
 
     create: function (listing) {
