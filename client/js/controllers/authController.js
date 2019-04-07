@@ -5,7 +5,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
         //     $('#login-card').toggleClass("flipped");
         //});
 		
-        $scope.flip = function(){
+        $scope.flip = function() {
             if ($scope.flipClass !== "flipped") {
 				$scope.flipClass = "flipped";
             }
@@ -14,28 +14,29 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
             }
         }
 
-        $scope.login = function(){
+        $scope.login = function() {
 			Auth.login($scope.login.user, $scope.login.pwd).then(function(response) {
-                    //Allow app access
-					console.log("\nAccess granted\n");
-                },
-                function(error) {
+                if(response.status == 200) {
+					//Allow app access
+					alert("Access granted");
+                }
+                else {
                     //Compose login failure message
-					console.log("\nInvalid Login\n");
+					alert("Invalid Login");
 				}
-			);
+			});
         }
 
-        $scope.signup = function(){
-            Auth.signup($scope.signup.user, $scope.signup.pwd).then((result) => {
-				if (result.status == 200) {
+        $scope.signup = function() {
+            Auth.signup($scope.signup.user, $scope.signup.pwd).then(function(response) {
+				if (response.status == 200) {
 					//Are we logging the user in automatically after signup?
 					//Or do we force them to login manually?
-					console.log("\nSignup granted\n");
+					alert("Signup granted");
 				}
 				else {
 					//Compose user creation message
-					console.log("\nInvalid Signup\n");
+					alert("Invalid Signup");
 				}
             });
         }

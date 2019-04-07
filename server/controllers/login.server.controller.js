@@ -6,10 +6,14 @@ var Login = require('../models/login.server.model.js');
 //TODO
 module.exports.register = function(req, res) {
 	
+	//for debug
+	console.log('\nPerforming registration for: \n');
+	console.log(req.body);	
+	
 	var user = new Login();
-		
-	user.username = req.body.username;
-	user.hash = req.body.hash;
+	
+	user.username = req.body.user;
+	user.hash = req.body.hashpwd;
 		
 	user.save(function (err) {
 		if (err) {
@@ -18,12 +22,12 @@ module.exports.register = function(req, res) {
 		} 
 		else {
 			//var token = user.generateToken();
-			console.log("register executing");
-			res.status(200);
+			console.log("Registration saved");
+			res.status(200).send();
 			/*
 			res.json({
-				"token" : token 
-			})
+				"token": token;
+			});
 			*/
 		}
 	});
@@ -31,16 +35,21 @@ module.exports.register = function(req, res) {
 
 //TODO
 module.exports.validate = function(req, res){
-	Login.find({username: req.username}).then(function(response) {
+	
+	//for debug
+	console.log("Got to validate");
+	console.log(req.body);
+	
+	Login.find({username: req.body.user}).then(function(response) {
 			if(!this) {	
 				res.status(400).send(err)
-				console.log("This object did not exist");
+				console.log("No object found");
 			} else {
-				if(this.validatePassword(response.hash)) {
-					res.status(200);
+				if(this.validatePassword(response.body.hashpwd)) {
+					res.status(200).send();
 					console.log("Success! Hash matches");
 				} else {
-					res.status(401);
+					res.status(401).send();
 					console.log("Checked hash, didn't match");
 				}
 			}	

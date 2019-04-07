@@ -21,10 +21,7 @@ var loginSchema = new Schema({
 		required: true
 	}
 	*/
-	created_at: {
-		type: Date,
-		required: true
-	},
+	created_at: Date,
 	updated_at: Date
 });
 

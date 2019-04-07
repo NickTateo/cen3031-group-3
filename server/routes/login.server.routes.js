@@ -7,23 +7,21 @@ var logctrl = require('../controllers/login.server.controller.js'),
 	These method calls are responsible for routing requests to the correct request handler.
 	Take note that it is possible for different controller functions to handle requests to the same route.
 */
-
-//router.route('/')
+router.route('/signup')
 	//TODO
-	.get(logctrl)
-
-
-/* The ':' specifies a URL parameter. */
-router.route('/:username/:hash')
+	.post(logctrl.register);
+	
+router.route('/login')
 	.post(logctrl.validate);
+
+/* The ':' specifies a URL parameter. 
+router.route('/:username/:hash')
+	.post(logctrl.validate);*/
 
 	//TODO
 	//Will there be any need to delete login info?
 	//.delete(listings.delete);
 
-router.route('signup/:username/:hash')
-	.post(logctrl.register);
-	
 /*
 	The 'router.param' method allows us to specify middleware we would like to use to handle 
 	requests with a parameter.
@@ -37,8 +35,7 @@ router.route('signup/:username/:hash')
 	It will then pass control to the routing function specified above, where it will either 
 	get, update, or delete that specific listing (depending on the HTTP verb specified)
 */
-/*
-router.param('username', 'hash', logctrl.validate);
-*/
+
+//router.param('creds', logctrl.register);
 
 module.exports = router;
