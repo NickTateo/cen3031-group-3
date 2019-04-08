@@ -6,11 +6,11 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
         //});
 		
         $scope.flip = function() {
-            if ($scope.flipClass !== "flipped") {
-				$scope.flipClass = "flipped";
+            if ($scope.flipClass !== 'flipped') {
+				$scope.flipClass = 'flipped';
             }
             else {
-                $scope.flipClass = "";
+                $scope.flipClass = '';
             }
         }
 
@@ -18,11 +18,11 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
 			Auth.login($scope.login.user, $scope.login.pwd).then(function(response) {
                 if(response.status == 200) {
 					//Allow app access
-					alert("Access granted");
+					alert('Access granted');
                 }
                 else {
                     //Compose login failure message
-					alert("Invalid Login");
+					alert('Invalid Login');
 				}
 			});
         }
@@ -32,11 +32,11 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
 				if (response.status == 200) {
 					//Are we logging the user in automatically after signup?
 					//Or do we force them to login manually?
-					alert("Signup granted");
+					alert('Signup granted');
 				}
 				else {
 					//Compose user creation message
-					alert("Invalid Signup");
+					alert('Invalid Signup');
 				}
             });
         }

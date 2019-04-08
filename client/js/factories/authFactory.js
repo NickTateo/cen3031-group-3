@@ -11,7 +11,7 @@ angular.module('auth').factory('Auth', function ($http) {
 				hashpwd: this.hash(pass)
 			};
 			
-			console.log("Log in will proceed with User: " + creds.user + " and hash: " + creds.hashpwd);
+			console.log('Log in will proceed with User: ' + creds.user + ' and hash: ' + creds.hashpwd);
 			
 			return $http.post('/auth/login/', creds);
         },
@@ -23,7 +23,7 @@ angular.module('auth').factory('Auth', function ($http) {
 				hashpwd: this.hash(pass)
 			};
 			
-			console.log("Sign Up will proceed with User: " + creds.user + " and hash: " + creds.hashpwd);
+			console.log('Sign Up will proceed with User: ' + creds.user + ' and hash: ' + creds.hashpwd);
 
 			//another attempt
 			return $http.post('/auth/signup/', creds);						

@@ -22,7 +22,8 @@ module.exports.register = function(req, res) {
 		} 
 		else {
 			//var token = user.generateToken();
-			console.log("Registration saved");
+			console.log('Registration saved');
+			res.setHeader('content-type', 'text/html');
 			res.status(200).send();
 			/*
 			res.json({
@@ -37,26 +38,32 @@ module.exports.register = function(req, res) {
 module.exports.validate = function(req, res){
 	
 	//for debug
-	console.log("Got to validate");
+	console.log('Got to validate');
 	console.log(req.body);
 	
-	Login.find({username: req.body.user}).then(function(response) {
-			if(!this) {	
-				res.status(400).send(err)
-				console.log("No object found");
+	Login.findOne({username: req.body.user}, function(err, result) {
+			if(err) {
+				res.status(400).send(err);
+			} else if(!result) {
+				res.status(400).send()
+				console.log('No object found');
 			} else {
-				if(this.validatePassword(response.body.hashpwd)) {
+				if(result.validatePassword(req.body.hashpwd)) {
+					res.setHeader('content-type', 'text/html');
 					res.status(200).send();
-					console.log("Success! Hash matches");
+					console.log('Success! Hash matches');
 				} else {
 					res.status(401).send();
-					console.log("Checked hash, didn't match");
+					console.log('Checked hash, didn\'t match');
 				}
 			}	
-		}, 
+		}
+		/*
+		, 
 		function(error){
 			res.status(400).send(err);
 		}
+		*/
 	);
 	
 	/*
