@@ -2,6 +2,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
     ($scope, Twitter) => {
 
         var responseData, lineGraph, barGraphTweets, barGraphUsers = null;
+        var barUrls = [];
         var place = sessionStorage.getItem('place');
         var topic = sessionStorage.getItem('topic');
 
@@ -11,20 +12,21 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             return;
         }
 
+
+
         if(!place){
             // topicOnly(topic);
             $scope.areaSearch = false;
             $scope.topic = topic;
             Twitter.trendTopic(topic).then((response) => {
-                console.log(response);
                 if(response.data == "topic has no tweets to show"){
                     console.log("yeah no tweets to show");
                     emptyData();
                     return;
                 }
-                console.log("Called this on init with value " + topic);
                 responseData = response.data.statuses;
                 $scope.barTweetsFavorites();
+                favBarClick();
                 $scope.lineRetweets();
                 $scope.barUsersFollowers();
             });
@@ -35,13 +37,13 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             $scope.topic = topic;
             $scope.place = place;
             Twitter.areaTopic(place, topic).then((response) => {
-                console.log(response);
+                // console.log(response);
                 if(response.data == "topic has no tweets to show"){
                     console.log("yeah no tweets to show");
                     emptyData();
                     return;
                 }
-                console.log("Called this on init with values " + place + " and " + topic);
+                // console.log("Called this on init with values " + place + " and " + topic);
                 responseData = response.data.statuses;
                 $scope.barTweetsFavorites();
                 $scope.lineRetweets();
@@ -49,27 +51,6 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             });
         }
 
-
-        //function topicAndArea(place, topic){
-
-        
-            // $scope.topic = topic;
-            // $scope.place = place;
-
-
-            // Twitter.areaTopic(place, topic).then((response) => {
-            //     console.log(response);
-            //     if(response.data == "topic has no tweets to show"){
-            //         console.log("yeah no tweets to show");
-            //         emptyData();
-            //         return;
-            //     }
-            //     console.log("Called this on init with values " + place + " and " + topic);
-            //     responseData = response.data.statuses;
-            //     $scope.barTweetsFavorites();
-            //     $scope.lineRetweets();
-            //     $scope.barUsersFollowers();
-            // });
 
             function sorting(sortParam) {
                 return function (a, b) {
@@ -81,7 +62,6 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     }
                     return 0;
                 }
-
             }
 
             function emptyData(){
@@ -110,6 +90,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     for (var i = 0; i < 10; i++) {
                         // labelName[i] = "#"+i;
                         labelPop[i] = responseData[i].favorite_count;
+                        barUrls[i] = "https://twitter.com/" + responseData[i].user.screen_name + "/statuses/" + responseData[i].id_str;
+                        // console.log("https://twitter.com/" + responseData[i].user.screen_name + "/statuses/" + responseData[i].id_str);
                         if (firstZero == -1 && responseData[i].favorite_count == 0) {
                             firstZero = i;
                         }
@@ -119,15 +101,16 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     for (var i = 0; i < tweetAmount; i++) {
                         // labelName[i] = "#"+i;
                         labelPop[i] = responseData[i].favorite_count;
+                        barUrls[i] = "https://twitter.com/" + responseData[i].user.screen_name + "/statuses/" + responseData[i].id_str;
                         if (firstZero == -1 && responseData[i].favorite_count == 0) {
                             firstZero = i;
                         }
                     }
                 }
 
-                console.log(labelPop);
-                console.log(labelName);
-                console.log("first zero: " + firstZero);
+                // console.log(labelPop);
+                // console.log(labelName);
+                // console.log("first zero: " + firstZero);
 
                 if (firstZero == 0) {
                     console.log("No top tweets");
@@ -193,6 +176,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     barGraphTweets.data.datasets[0].label = "Favorites";
                     barGraphTweets.update();
                 }
+
             }
 
             $scope.barTweetsRetweets = function(){
@@ -205,6 +189,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     for (var i = 0; i < 10; i++) {
                         // labelName[i] = "#"+i;
                         labelPop[i] = responseData[i].retweet_count;
+                        barUrls[i] = "https://twitter.com/" + responseData[i].user.screen_name + "/statuses/" + responseData[i].id_str;
                         if (firstZero == -1 && responseData[i].retweet_count == 0) {
                             firstZero = i;
                         }
@@ -214,6 +199,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     for (var i = 0; i < tweetAmount; i++) {
                         // labelName[i] = "#"+i;
                         labelPop[i] = responseData[i].retweet_count;
+                        barUrls[i] = "https://twitter.com/" + responseData[i].user.screen_name + "/statuses/" + responseData[i].id_str;
                         if (firstZero == -1 && responseData[i].retweet_count == 0) {
                             firstZero = i;
                         }
@@ -248,6 +234,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             $scope.lineFavorites = function () {
                 var yAxis = [], xAxis = [];
                 let filteredResult = responseData.filter(val => val.favorite_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) })
+
 
                 for (let i = 0; i < filteredResult.length; i++) {
                     if (i == 10) {
@@ -322,13 +309,13 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
 
             $scope.barUsersFollowers = function(){
                 responseData.sort((a, b) => parseFloat(b.user.followers_count) - parseFloat(a.user.followers_count));
-                console.log(responseData);
+                // console.log(responseData);
                 //remove duplicate users
                 var newResponse = JSON.parse(JSON.stringify(responseData));
                 var cap = newResponse.length;
                 for(var i = 1; i < cap; i++){
                     if(newResponse[i].user.screen_name == newResponse[i-1].user.screen_name){
-                        console.log("cutting stuff right now!")
+                        // console.log("cutting stuff right now!")
                         newResponse.splice(i, 1);    //remove element at ith index
                         cap--;
                         i--;
@@ -358,11 +345,11 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     }
                 }
 
-                console.log("\nWith cutting repeating users")
-                console.log(labelPop);
-                console.log(labelName);
-                console.log("first zero: " + firstZero);
-                console.log(newResponse);
+                // console.log("\nWith cutting repeating users")
+                // console.log(labelPop);
+                // console.log(labelName);
+                // console.log("first zero: " + firstZero);
+                // console.log(newResponse);
 
                 var ctx = document.getElementById('top-users').getContext('2d');
                 if(!barGraphUsers){
@@ -421,7 +408,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 var cap = newResponse.length;
                 for(var i = 1; i < cap; i++){
                     if(newResponse[i].user.screen_name == newResponse[i-1].user.screen_name){
-                        console.log("cutting stuff right now!")
+                        // console.log("cutting stuff right now!")
                         newResponse.splice(i, 1);    //remove element at ith index
                         cap--;
                         i--;
@@ -451,11 +438,11 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     }
                 }
 
-                console.log("\nWith cutting repeating users")
-                console.log(labelPop);
-                console.log(labelName);
-                console.log("first zero: " + firstZero);
-                console.log(newResponse);
+                // console.log("\nWith cutting repeating users")
+                // console.log(labelPop);
+                // console.log(labelName);
+                // console.log("first zero: " + firstZero);
+                // console.log(newResponse);
 
                 barGraphUsers.data.datasets[0].data = labelPop;
                 barGraphUsers.data.labels = labelName;
@@ -464,8 +451,20 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 barGraphUsers.update();
             }
         //}
-    
-       
+        
+        function favBarClick(){
+            document.getElementById('top-tweets').addEventListener('click', function(event){
+                var selected = barGraphTweets.getElementAtEvent(event);
+                if (selected.length == 0) {
+                    console.log("clicked on unimportant area");
+                }
+                else {
+                    var index = selected[0]._model.label;
+                    index = index.substring(1);
+                    window.open(barUrls[index-1]);
+                }
+            }, false);
+        }
 
     }
 ]);
