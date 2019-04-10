@@ -46,6 +46,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 // console.log("Called this on init with values " + place + " and " + topic);
                 responseData = response.data.statuses;
                 $scope.barTweetsFavorites();
+                favBarClick();
                 $scope.lineRetweets();
                 $scope.barUsersFollowers();
             });
