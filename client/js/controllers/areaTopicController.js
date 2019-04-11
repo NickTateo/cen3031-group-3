@@ -29,6 +29,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 favBarClick();
                 $scope.lineRetweets();
                 $scope.barUsersFollowers();
+                userBarClick();
             });
         }
         else{
@@ -49,6 +50,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 favBarClick();
                 $scope.lineRetweets();
                 $scope.barUsersFollowers();
+                userBarClick();
             });
         }
 
@@ -463,6 +465,21 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     var index = selected[0]._model.label;
                     index = index.substring(1);
                     window.open(barUrls[index-1]);
+                }
+            }, false);
+        }
+
+        function userBarClick(){
+            document.getElementById('top-users').addEventListener('click', function(event){
+                var selected = barGraphUsers.getElementAtEvent(event);
+                if (selected.length == 0) {
+                    console.log("clicked on unimportant area");
+                }
+                else {
+                    var name = selected[0]._model.label;
+                    name = name.substring(1);
+                    var url = "https://twitter.com/";
+                    window.open(url+name);
                 }
             }, false);
         }
