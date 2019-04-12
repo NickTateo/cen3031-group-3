@@ -236,8 +236,12 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
 
             $scope.lineFavorites = function () {
                 var yAxis = [], xAxis = [];
-                let filteredResult = responseData.filter(val => val.favorite_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) })
+                // let filteredResult = responseData.filter(val => val.favorite_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) })
 
+                var filteredResult = JSON.parse(JSON.stringify(responseData));
+                filteredResult.sort((a, b) => parseFloat(b.favorite_count) - parseFloat(a.favorite_count));
+                filteredResult.splice(10);
+                filteredResult.sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) });
 
                 for (let i = 0; i < filteredResult.length; i++) {
                     if (i == 10) {
@@ -257,7 +261,20 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             $scope.lineRetweets = function () {
                 var ctx = $('#line-graph').get(0).getContext('2d');
                 let yAxis = [], xAxis = [];
-                let filteredResult = responseData.filter(val => val.retweet_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) });
+                // let filteredResult = responseData.filter(val => val.retweet_count !== 0).sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) });
+                
+                var filteredResult = JSON.parse(JSON.stringify(responseData));
+                // console.log(filteredResult);
+                // console.log("sorting by rt: ");
+                filteredResult.sort((a, b) => parseFloat(b.retweet_count) - parseFloat(a.retweet_count));
+                // console.log(filteredResult);
+                filteredResult.splice(10);
+                // console.log("removed excess");
+                // console.log(filteredResult);
+                filteredResult.sort((a, b) => { return new Date(a.created_at) - new Date(b.created_at) });
+                // console.log("sort by date");
+                // console.log(filteredResult);
+
                 for (let i = 0; i < filteredResult.length; i++) {
                     if (i == 10) {
                         break;
