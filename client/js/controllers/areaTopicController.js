@@ -249,9 +249,10 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     }
                     yAxis[i] = filteredResult[i].favorite_count;
                     let dateCreated = new Date(filteredResult[i].created_at);
-                    xAxis[i] = `${(dateCreated.getHours() % 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
+                    xAxis[i] = `${(dateCreated.getUTCHours() % 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
+                    console.log(dateCreated.getHours(), dateCreated.getMinutes());
                 }
-
+                console.log(filteredResult);
                 lineGraph.data.datasets[0].data = yAxis;
                 lineGraph.data.labels = xAxis;
                 lineGraph.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
@@ -303,7 +304,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                                 xAxes: [{
                                     scaleLabel: {
                                         display: true,
-                                        labelString: "Trends (time)"
+                                        labelString: "Trends (UTC)"
                                     }
                                 }],
                                 yAxes: [{
