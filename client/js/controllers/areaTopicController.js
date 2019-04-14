@@ -3,6 +3,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
 
         var responseData, lineGraph, barGraphTweets, barGraphUsers = null;
         var barUrls = [];
+        var lineUrls = [];
         var place = sessionStorage.getItem('place');
         var topic = sessionStorage.getItem('topic');
 
@@ -28,6 +29,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 $scope.barTweetsFavorites();
                 favBarClick();
                 $scope.lineRetweets();
+                lineClick();
                 $scope.barUsersFollowers();
                 userBarClick();
             });
@@ -49,6 +51,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 $scope.barTweetsFavorites();
                 favBarClick();
                 $scope.lineRetweets();
+                lineClick();
                 $scope.barUsersFollowers();
                 userBarClick();
             });
@@ -249,8 +252,35 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     }
                     yAxis[i] = filteredResult[i].favorite_count;
                     let dateCreated = new Date(filteredResult[i].created_at);
-                    xAxis[i] = `${(dateCreated.getUTCHours() % 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
-                    console.log(dateCreated.getHours(), dateCreated.getMinutes());
+                    
+                    if(dateCreated.getMinutes().toString().length == 1){
+                        // console.log("single digit min");
+
+                        var hour = mod((dateCreated.getUTCHours()-7), 12);
+                        if(hour == 0){ 
+                            hour = 12;
+                        }
+                        // console.log("hour: " + hour);
+                        var min = dateCreated.getMinutes().toString();
+                        min = "0"+min;
+                        parseInt(min, 10);
+                        // console.log("min: " + min);
+                        xAxis[i] = `${hour}:${min}:${dateCreated.getSeconds()} ${dateCreated.getUTCHours()-7 < 0 || dateCreated.getUTCHours()-7 >= 12  ? "PM" : "AM"}`;
+                    }
+                    else{
+                        // console.log("double digit min");
+                        var hour = mod((dateCreated.getUTCHours()-7), 12);
+                        if(hour == 0){ 
+                            hour = 12;
+                        }
+                        var min = dateCreated.getMinutes();
+                        // console.log("hour: "+hour);
+                        // console.log("min: "+min);
+                        xAxis[i] = `${hour}:${min}:${dateCreated.getSeconds()} ${dateCreated.getUTCHours()-7 < 0 || dateCreated.getUTCHours()-7 >= 12  ? "PM" : "AM"}`;
+                    }
+                 
+                    //fill lineUrls array
+                    lineUrls[i] = "https://twitter.com/" + filteredResult[i].user.screen_name + "/statuses/" + filteredResult[i].id_str;
                 }
                 console.log(filteredResult);
                 lineGraph.data.datasets[0].data = yAxis;
@@ -282,7 +312,35 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     }
                     yAxis[i] = filteredResult[i].retweet_count;
                     let dateCreated = new Date(filteredResult[i].created_at);
-                    xAxis[i] = `${(dateCreated.getHours() % 12)}:${dateCreated.getMinutes()}:${dateCreated.getSeconds()} ${dateCreated.getHours() >= 12 ? "PM" : "AM"}`;
+
+                    if(dateCreated.getMinutes().toString().length == 1){
+                        // console.log("single digit min");
+
+                        var hour = mod((dateCreated.getUTCHours()-7), 12);
+                        if(hour == 0){ 
+                            hour = 12;
+                        }
+                        // console.log("hour: " + hour);
+                        var min = dateCreated.getMinutes().toString();
+                        min = "0"+min;
+                        parseInt(min, 10);
+                        // console.log("min: " + min);
+                        xAxis[i] = `${hour}:${min}:${dateCreated.getSeconds()} ${dateCreated.getUTCHours()-7 < 0 || dateCreated.getUTCHours()-7 >= 12  ? "PM" : "AM"}`;
+                    }
+                    else{
+                        // console.log("double digit min");
+                        var hour = mod((dateCreated.getUTCHours()-7), 12);
+                        if(hour == 0){ 
+                            hour = 12;
+                        }
+                        var min = dateCreated.getMinutes();
+                        // console.log("hour: "+hour);
+                        // console.log("min: "+min);
+                        xAxis[i] = `${hour}:${min}:${dateCreated.getSeconds()} ${dateCreated.getUTCHours()-7 < 0 || dateCreated.getUTCHours()-7 >= 12  ? "PM" : "AM"}`;
+                    }
+                    
+                    //fill lineUrls array
+                    lineUrls[i] = "https://twitter.com/" + filteredResult[i].user.screen_name + "/statuses/" + filteredResult[i].id_str;
                 }
 
                 if (lineGraph == null) {
@@ -487,6 +545,20 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             }, false);
         }
 
+        function lineClick(){
+            document.getElementById('line-graph').addEventListener('click', function(event){
+                var selected = lineGraph.getElementAtEvent(event);
+                if(selected.length == 0){
+                    console.log("clicked on unimportant area");
+                }
+                else{
+                    var index = selected[0]._index;
+                    console.log(index);
+                    window.open(lineUrls[index]);
+                }
+            }, false);   
+        }
+
         function userBarClick(){
             document.getElementById('top-users').addEventListener('click', function(event){
                 var selected = barGraphUsers.getElementAtEvent(event);
@@ -500,6 +572,12 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     window.open(url+name);
                 }
             }, false);
+        }
+
+
+        //function needed for modulo :(
+        function mod(a, b){
+            return ((a % b)+b)%b;
         }
 
     }
