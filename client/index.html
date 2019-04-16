@@ -2,100 +2,87 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles/main.css">
 </head>
 
-<body ng-app="TweetData">
-  <div class="container" ng-controller="ListingsController">
-    <div class="row">
-      <h1>UF Directory App</h1>
-      <p>Daniel Geleroff</p>
+<body ng-app="tweetData">
+  <nav class="navbar shadow-sm navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="logo.png" class="logo" alt="Home">
+      <h3 class="inline">TweetData</h3>
+    </a>
+
+    <div class="logout">
+      <button class="btn btn-outline-secondary btn">Logout</button>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-10" style="padding-right:0;">
-              <div class="input-group" id="searchBar">
-                <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-                <input type="text" class="form-control" ng-model="q" placeholder="Search">
+  </nav>
+  <div class="container-fluid" ng-controller="TwitterController">
+
+    <div class="row justify-content-center">
+      <div class="col-8 align-items-center">
+        <div class="row align-items-center">
+          <div class="input-group input-group-lg topmargin-lg">
+            <div class="input-group-prepend">
+              <div class="btn-group btn-group-toggle hide-btn" data-toggle="buttons">
+                <label class="btn btn-outline-secondary active" ng-click="setSearch(false)">
+                  <input type="radio" name="topic-button" autocomplete="off" checked>Topic
+                </label>
+                <label class="btn btn-outline-secondary" ng-click="setSearch(true)">
+                  <input type="radio" name="area-button" autocomplete="off">Area
+                </label>
               </div>
             </div>
-            <div class="col-sm-2" style="padding-top:15px;padding-left:0;">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addListing"><span class="glyphicon glyphicon-plus"></span></button>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="input-group" id="searchBar">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
-            <input type="text" class="form-control" ng-model="q" placeholder="Search">
-          </div>
-          <button style="display:inline-block" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addListing"><span
-              class="glyphicon glyphicon-plus"></span></button> -->
-        <div class="tableWrapper" class="border">
-          <table class="table table-striped table-hover">
-            <tr>
-              <th>Code</th>
-              <th>Building Name</th>
-            </tr>
-            <tr class="table-row" ng-click="showDetails($index)" ng-repeat="listing in listings | filter:q as list track by listing.code">
-              <td>{{listing.code}}</td>
-              <td>{{listing.name}} <span style="float:right;" ng-click="deleteListing(listing._id)" class="glyphicon glyphicon-remove delete-icon"></span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="jumbotron border">
-
-          Lara Baigorria
-          Maddux Was Here
-		  Nick was there
-
-          <h2 style="color:#337ab7;">Detailed Information</h2>
-          <div>
-            <h3>{{detailedInfo.name}}</h3>
-          </div>
-          <div class="topmargin" ng-if="detailedInfo.code != null"><span class="bold">Code:</span><br />{{detailedInfo.code}}</div>
-          <div class="topmargin" ng-if="detailedInfo.address != null"><span class="bold">Address:</span><br />{{detailedInfo.address}}</div>
-          <div class="topmargin" ng-if="detailedInfo.coordinates != null"><span class="bold">Coordinates:</span><br />({{detailedInfo.coordinates.latitude}},{{detailedInfo.coordinates.longitude}})</div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="addListing" tabindex=-1 role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3>Add a New Listing</h3>
-          </div>
-          <div class="modal-body">
-            <div class="form-group form-group-sm">
-              <input type="text" class="form-control topmargin" ng-model="code" placeholder="Code">
-              <input type="text" class="form-control topmargin" ng-model="name" placeholder="Building Name">
-              <input type="text" class="form-control topmargin" ng-model="address" placeholder="Address">
-              <input type="text" class="form-control topmargin" ng-model="lat" placeholder="Latitude">
-              <input type="text" class="form-control topmargin" ng-model="long" placeholder="Longitude">
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" data-dismiss="modal" ng-click="addListing(name,code,address,lat,long)">Submit</button>
-              </div>
+            <input placeholder="Keyword" type="text" class="form-control" ng-model="userPlace"
+              ng-keyup="$event.keyCode == 13 ? searchTrend() : null">
+            <div class="input-group-append">
+              <button ng-click="searchTrend()" class="btn btn-outline-secondary">See Trends</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-	<div style="border: solid 1px red">
-	Guille is shorter to write. Notepad++ is better.
-	</div>
+    <div class="row justify-content-center">
+      <div class="col-8 topmargin-lg">
+        <canvas id="test-chart"></canvas>
+        <div id="no-results" style="display: none">
+          <h1>:( Sorry!</h1>
+          <h2>Your search either has a typo or has no topics currently trending</h2>
+        </div>
+      </div>
+    </div>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-  <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/controllers/listingController.js"></script>
-  <script src="js/factories/listingFactory.js"></script>
+  </div>
+
+
+
+
+
 </body>
 
 </html>
+
+<!-- Angular -->
+<script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+
+
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+<!-- Charts.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!-- Our Logic -->
+<script src="js/app.js"></script>
+<script src="js/controllers/TwitterController.js"></script>
+<script src="js/factories/TwitterFactory.js"></script>

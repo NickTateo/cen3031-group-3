@@ -13,7 +13,10 @@ angular.module('auth').factory('Auth', function ($http) {
 			
 			console.log('Log in will proceed with User: ' + creds.user + ' and hash: ' + creds.hashpwd);
 			
-			return $http.post('/auth/login/', creds);
+			return $http.post('/auth/login/', creds).success(function() {
+				console.log('Reached login success');
+				window.location.href = '/search';
+			});
         },
 		
         signup: function(username, pass) {
@@ -35,7 +38,17 @@ angular.module('auth').factory('Auth', function ($http) {
 			var hash = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(pass));
 			
 			return hash;
+		},
+		
+		/*
+		allowAccess: function(isAuthed){
+			if(isAuthed) {
+				return $http.get('/search');
+			} else {
+				alert("No access for you!");
+			}
 		}
+		*/
     };
     return auth_service;
 });

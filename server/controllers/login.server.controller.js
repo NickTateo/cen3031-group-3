@@ -1,7 +1,9 @@
-var mongoose = require('mongoose');
-//var passport = require('passport');
-var config = require('../config/config');
-var Login = require('../models/login.server.model.js');
+var mongoose = require('mongoose'),
+	//passport = require('passport'),
+	config = require('../config/config'),
+	Login = require('../models/login.server.model.js'),
+	fs = require('fs'),
+	path = require('path');  
 
 //TODO
 module.exports.register = function(req, res) {
@@ -9,6 +11,8 @@ module.exports.register = function(req, res) {
 	//for debug
 	console.log('\nPerforming registration for: \n');
 	console.log(req.body);	
+	
+	res.setHeader('content-type', 'text/html');
 	
 	var user = new Login();
 	
@@ -41,6 +45,8 @@ module.exports.validate = function(req, res){
 	console.log('Got to validate');
 	console.log(req.body);
 	
+	res.setHeader('content-type', 'text/html');
+	
 	Login.findOne({username: req.body.user}, function(err, result) {
 			if(err) {
 				res.status(400).send(err);
@@ -49,7 +55,7 @@ module.exports.validate = function(req, res){
 				console.log('No object found');
 			} else {
 				if(result.validatePassword(req.body.hashpwd)) {
-					res.setHeader('content-type', 'text/html');
+					//res.setHeader('content-type', 'text/html');
 					res.status(200).send();
 					console.log('Success! Hash matches');
 				} else {
@@ -58,12 +64,6 @@ module.exports.validate = function(req, res){
 				}
 			}	
 		}
-		/*
-		, 
-		function(error){
-			res.status(400).send(err);
-		}
-		*/
 	);
 	
 	/*
@@ -87,6 +87,23 @@ module.exports.validate = function(req, res){
 	})(req, res);
 	*/
 };
+
+/*
+module.exports.passthrough = function(req, res) {
+	//for debug
+	console.log('Got to redirect');
+	console.log(req.body);
+	
+	fs.readFile(path.resolve('/client/index.html'), function(err, newpage) {
+		if(err) {
+			res.status(400).send(err);
+		}
+		res.setHeader('Content-type', 'text/html');
+		res.status(200);
+		res.send(newpage);
+	});	
+}
+*/
 
 /*
 module.exports.findUser = function(req, res, next, username) {

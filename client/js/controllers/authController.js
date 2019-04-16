@@ -18,7 +18,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
 			Auth.login($scope.login.user, $scope.login.pwd).then(function(response) {
                 if(response.status == 200) {
 					//Allow app access
-					alert('Access granted');
+					//Auth.allowAccess(true);
                 }
                 else {
                     //Compose login failure message

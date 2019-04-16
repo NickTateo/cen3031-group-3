@@ -14,6 +14,11 @@ router.route('/signup')
 router.route('/login')
 	.post(logctrl.validate);
 
+/*	
+router.route('/search')
+	.get(logctrl.passthrough);
+*/
+	
 /* The ':' specifies a URL parameter. 
 router.route('/:username/:hash')
 	.post(logctrl.validate);*/
