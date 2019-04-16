@@ -19,6 +19,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
             // topicOnly(topic);
             $scope.areaSearch = false;
             $scope.topic = topic;
+
             Twitter.trendTopic(topic).then((response) => {
                 if(response.data == "topic has no tweets to show"){
                     console.log("yeah no tweets to show");
@@ -33,6 +34,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 $scope.barUsersFollowers();
                 userBarClick();
             });
+
         }
         else{
             // topicAndArea(place, topic);
@@ -180,6 +182,9 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     barGraphTweets.data.labels = labelName;
                     barGraphTweets.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
                     barGraphTweets.data.datasets[0].label = "Favorites";
+
+                    barGraphTweets.data.datasets[0].backgroundColor = 'rgb(255, 99, 132)';
+                    barGraphTweets.data.datasets[0].borderColor = 'rgb(255, 99, 132)';
                     barGraphTweets.update();
                 }
 
@@ -233,6 +238,10 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 barGraphTweets.data.labels = labelName;
                 barGraphTweets.options.scales.yAxes[0].scaleLabel.labelString = "# of Retweets"
                 barGraphTweets.data.datasets[0].label = "Retweets";
+
+                barGraphTweets.data.datasets[0].backgroundColor = 'rgb(66,192,251)';
+                barGraphTweets.data.datasets[0].borderColor = 'rgb(66,192,251)';
+
                 barGraphTweets.update();
 
             }
@@ -287,6 +296,10 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 lineGraph.data.labels = xAxis;
                 lineGraph.options.scales.yAxes[0].scaleLabel.labelString = "# of Favorites"
                 lineGraph.data.datasets[0].label = "Favorites";
+
+                lineGraph.data.datasets[0].backgroundColor = 'rgb(255, 99, 132)';
+                lineGraph.data.datasets[0].borderColor = 'rgb(255, 99, 132)';
+
                 lineGraph.update();
             }
             $scope.lineRetweets = function () {
@@ -351,8 +364,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                             labels: xAxis,
                             datasets: [{
                                 label: "Retweets",
-                                backgroundColor: 'rgb(255, 99, 132)',
-                                borderColor: 'rgb(255, 99, 132)',
+                                backgroundColor: 'rgb(66,192,251)',
+                                borderColor: 'rgb(66,192,251)',
                                 data: yAxis,
                                 display: true
                             }]
@@ -362,7 +375,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                                 xAxes: [{
                                     scaleLabel: {
                                         display: true,
-                                        labelString: "Trends (UTC)"
+                                        labelString: "Tweet Time (EST)"
                                     }
                                 }],
                                 yAxes: [{
@@ -381,6 +394,10 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     lineGraph.data.labels = xAxis;
                     lineGraph.options.scales.yAxes[0].scaleLabel.labelString = "# of Retweets"
                     lineGraph.data.datasets[0].label = "Retweets";
+
+                    lineGraph.data.datasets[0].backgroundColor = 'rgb(66,192,251)';
+                    lineGraph.data.datasets[0].borderColor = 'rgb(66,192,251)';
+
                     lineGraph.update();
                 }
             }
@@ -441,8 +458,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                             labels: labelName,
                             datasets: [{
                                 label: 'Top Users by Followers',
-                                backgroundColor: 'rgb(255, 99, 132)',
-                                borderColor: 'rgb(255, 99, 132)',
+                                backgroundColor: 'rgb(255, 200, 57)',
+                                borderColor: 'rgb(255, 200, 57)',
                                 data: labelPop,
                                 display: true
                             }]
@@ -475,6 +492,10 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                     barGraphUsers.data.labels = labelName;
                     barGraphUsers.options.scales.yAxes[0].scaleLabel.labelString = "# of Followers"
                     barGraphUsers.data.datasets[0].label = "Top Users by Followers";
+
+                    barGraphUsers.data.datasets[0].backgroundColor = 'rgb(255, 200, 57)';
+                    barGraphUsers.data.datasets[0].borderColor = 'rgb(255, 200, 57)';
+
                     barGraphUsers.update();
                 }
 
@@ -527,6 +548,10 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 barGraphUsers.data.labels = labelName;
                 barGraphUsers.options.scales.yAxes[0].scaleLabel.labelString = "# of Tweets"
                 barGraphUsers.data.datasets[0].label = "Top Users by Tweet Count";
+
+                barGraphUsers.data.datasets[0].backgroundColor = 'rgb(97, 52, 174)';
+                barGraphUsers.data.datasets[0].borderColor = 'rgb(97, 52, 174)';
+
                 barGraphUsers.update();
             }
         //}
