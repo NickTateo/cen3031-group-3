@@ -3,7 +3,7 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
 
     sessionStorage.removeItem("topic");
     sessionStorage.removeItem("place");
-    
+    $scope.loading = false;
     var graphExists = false;
     var chart;
     var searchNumber = false;
@@ -30,8 +30,10 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
         $window.location.href = "../../datapage_template.html";
       }
       else {
+        $scope.loading = true;
         sessionStorage.setItem("place", userInput);
         Twitter.getTrends(userInput).then(function (response) {
+          $scope.loading = false;
           if (graphExists) {
             var tmpChart = chart;
             chart = null;

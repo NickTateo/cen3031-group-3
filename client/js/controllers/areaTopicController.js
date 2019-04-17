@@ -6,7 +6,7 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
         var lineUrls = [];
         var place = sessionStorage.getItem('place');
         var topic = sessionStorage.getItem('topic');
-
+        $scope.loading = true;
         if (!place && !topic) {
             console.log("no session storage!");
             $window.location.href = '../../index.html';   
@@ -33,6 +33,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 lineClick();
                 $scope.barUsersFollowers();
                 userBarClick();
+            }).finally(()=>{
+                $scope.loading = false;
             });
 
         }
@@ -56,6 +58,8 @@ angular.module('twitter').controller('areaTopicController', ['$scope', 'Twitter'
                 lineClick();
                 $scope.barUsersFollowers();
                 userBarClick();
+            }).finally(()=>{
+                $scope.loading = false;
             });
         }
 
