@@ -56,6 +56,11 @@ module.exports.validate = function(req, res){
 			} else {
 				if(result.validatePassword(req.body.hashpwd)) {
 					//res.setHeader('content-type', 'text/html');
+					/*
+					res.json(
+						'token':;
+					);
+					*/
 					res.status(200).send();
 					console.log('Success! Hash matches');
 				} else {

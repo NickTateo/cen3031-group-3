@@ -1,3 +1,20 @@
+body, html, container-fluid {
+  height: 100%;
+}
+
+#searchBar {
+  margin: 15px 10px;
+}
+
+.tableWrapper {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.table-row {
+  cursor: pointer;
+}
+
 .border {
   border: 1px #337ab7;
   border-style: solid;
@@ -8,8 +25,16 @@
   font-weight: bold;
 }
 
-.top-margin {
-  margin-top: 5px;
+.float-right {
+  float: right;
+}
+
+.topmargin-lg {
+  margin-top: 30px;
+}
+
+.topmargin-sm{
+  margin-top:15px;
 }
 
 .delete-icon:hover {
@@ -20,24 +45,17 @@ input:focus::placeholder {
   color: #337ab7;
 }
 
-input:focus {
-  outline: none;
-}
-
-#header {
-  width: 100%;
-  position: absolute;
-  height: 30px;
-  color: red;
-}
-
 .navbar {
   background-color: #e3f2fd;
 }
 
+.btn-group-toggle>label:hover {
+  cursor: pointer;
+}
+
 .logo {
-  height: 75px;
-  width: 144px;
+  height: 50px;
+  width: 96px;
 }
 
 .title {
@@ -45,47 +63,33 @@ input:focus {
   font-size: 40px;
 }
 
-#login-card {
-  height: 35rem;
-  width: 35rem;
+.topic-title>h2 {
+  margin-bottom: -20px;
+  /*padding-top: 0px;*/
 }
 
-.login-href {
-  font-size: 1.2em;
+.table-wrapper {
+  height: 200px;
+  overflow: auto;
 }
 
-.flip {
-  position: relative;
-  perspective: 400;
+.graph {
+  height: 400px;
 }
 
-.flip .card {
-  transition: 0.7s;
-  transform-style: preserve-3d;
-  position: relative;
+.refine-area {
+  margin: 10px auto;
 }
 
-.flip .card .face {
-  backface-visibility: hidden;
-  z-index: 2;
+.inline{
+  display: inline;
 }
 
-.flip .card.flipped {
-  transform: rotateY(-180deg);
+.back-content{
+  font-size: 25px;
 }
 
-.front {
-  z-index: 30;
-  height: 100%;
-}
-
-.flip .card .back {
-  transform: rotateY(-180deg);
-  position:absolute;
-  width:100%;
-  height: 100%;
-}
-
-.card-body{
-  height:100%;
+.back{
+  margin-top: 12%;
+  
 }
