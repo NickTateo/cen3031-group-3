@@ -45,6 +45,8 @@
       </div>
     </div>
     <div class="row justify-content-center">
+      <div class="spinner-border" ng-if="loading"
+        style="position:absolute;left:47%;top:50%;width:90px;height:90px;z-index:9999"></div>
       <div class="col-8 topmargin-lg">
         <canvas id="test-chart"></canvas>
         <div id="no-results" style="display: none">
