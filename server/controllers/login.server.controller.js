@@ -25,13 +25,13 @@ module.exports.register = function(req, res) {
 			res.status(400).send(err);
 		} 
 		else {
-			//var token = user.generateToken();
+			var tkn = user.generateToken();
 			console.log('Registration saved');
 			res.setHeader('content-type', 'text/html');
-			res.status(200).send();
+			res.status(200).send({ auth: true, token: tkn});
 			/*
 			res.json({
-				"token": token;
+				"token": token
 			});
 			*/
 		}
@@ -55,13 +55,15 @@ module.exports.validate = function(req, res){
 				console.log('No object found');
 			} else {
 				if(result.validatePassword(req.body.hashpwd)) {
+					var tnk = user.generateToken();
+					console.log(tnk);
 					//res.setHeader('content-type', 'text/html');
 					/*
 					res.json(
 						'token':;
 					);
 					*/
-					res.status(200).send();
+					res.status(200).send( {auth : true, token: tkn});
 					console.log('Success! Hash matches');
 				} else {
 					res.status(401).send();
@@ -91,6 +93,10 @@ module.exports.validate = function(req, res){
 		}
 	})(req, res);
 	*/
+};
+
+module.exports.validateToken = function(req, res){
+	var tnk = req.headers['x-access-token'];
 };
 
 /*

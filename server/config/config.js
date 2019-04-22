@@ -10,5 +10,6 @@ module.exports = {
     //user below has read and write access
 	uri: 'mongodb://bootcamp_root:bootcamp_pwd0@ds133275.mlab.com:33275/cen3031', //place the URI of your mongo database here.
   }, 
-  port: (process.env.PORT || 8080)
+  port: (process.env.PORT || 8080),
+  jwt_secret: 'cen3001_group3'
 };

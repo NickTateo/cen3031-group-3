@@ -2,7 +2,8 @@
 var mongoose = require('mongoose'), 
     Schema = mongoose.Schema;
 var crypto = require('crypto');
-//var jwt = require('jsonwebtoken');
+var config = require('../config/config')
+var jwt = require('jsonwebtoken');
 
 /* Create schema */
 var loginSchema = new Schema({
@@ -58,24 +59,23 @@ loginSchema.methods.validatePassword = function(vHash) {
 	//Test without second hash
 	return this.hash === vHash;
 }
-/*
+
 loginSchema.methods.generateToken = function() {
-	var expiry = new Date();
-	expiry.setDate(expiry.getDate() + 1);
+	//var expiry = new Date();
+	//expiry.setDate(expiry.getDate() + 1);
 
 	return jwt.sign({
 		_id: this._id,
 		username: this.username,
-		name: this.name,
-		exp: parseInt(expiry.getTime() / 1000),
-	}, "MY_SECRET");
+		exp: 86400,
+	}, config.jwt_secret);
 	
 	// MY_SECRET is the private key for the sign function 
 	// this whe can generate by other means too
 	/// TODO generate Private key 	
 	
 };
-*/
+
 
 /*Schema instantiates a Mongoose model */
 var Logins = mongoose.model('Logins', loginSchema);
