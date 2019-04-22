@@ -14,6 +14,4 @@ router.route('/trend/:topic/:isHash')
 router.route('/:userPlace')
 	.get(twitter.dynamicTrends);
 
-
-
 module.exports = router;

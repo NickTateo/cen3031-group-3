@@ -1,6 +1,7 @@
 /* Dependencies */
 var logctrl = require('../controllers/login.server.controller.js'), 
-	express = require('express'), 
+	express = require('express'),
+	path = require('path'); 
 	router = express.Router();
 
 /* 
@@ -14,10 +15,10 @@ router.route('/signup')
 router.route('/login')
 	.post(logctrl.validate);
 
-/*	
-router.route('/search')
-	.get(logctrl.passthrough);
-*/
+
+router.route('/search/:token')
+	.get(logctrl.validateToken);
+
 	
 /* The ':' specifies a URL parameter. 
 router.route('/:username/:hash')

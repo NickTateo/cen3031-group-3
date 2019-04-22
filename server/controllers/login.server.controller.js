@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 	config = require('../config/config'),
 	Login = require('../models/login.server.model.js'),
 	fs = require('fs'),
-	path = require('path');  
+	path = require('path'),
+	jwt = require('jsonwebtoken');  
 
 //TODO
 module.exports.register = function(req, res) {
@@ -48,25 +49,23 @@ module.exports.validate = function(req, res){
 	res.setHeader('content-type', 'text/html');
 	
 	Login.findOne({username: req.body.user}, function(err, result) {
+			var tnk;
 			if(err) {
 				res.status(400).send(err);
 			} else if(!result) {
-				res.status(400).send()
-				console.log('No object found');
+				res.status(200).send({"auth": false, "token": null});
+				console.log('User not found');
 			} else {
 				if(result.validatePassword(req.body.hashpwd)) {
-					var tnk = user.generateToken();
-					console.log(tnk);
+					tnk = result.generateToken();
+					//console.log(tnk);
 					//res.setHeader('content-type', 'text/html');
-					/*
-					res.json(
-						'token':;
-					);
-					*/
-					res.status(200).send( {auth : true, token: tkn});
+					
+					res.status(200).send({"auth": true, "token" : tnk});
+					//.send({auth : true, token: tnk});
 					console.log('Success! Hash matches');
 				} else {
-					res.status(401).send();
+					res.status(200).send({"auth": false, "token": null});
 					console.log('Checked hash, didn\'t match');
 				}
 			}	
@@ -96,7 +95,25 @@ module.exports.validate = function(req, res){
 };
 
 module.exports.validateToken = function(req, res){
-	var tnk = req.headers['x-access-token'];
+	var tnk = req.params.token;
+	//console.log(req);
+	if(!tnk){
+		res.status(401).send({auth: false, message: "access not granted"});
+	}
+	jwt.verify(tnk,config.jwt_secret,function(err,decoded){
+		if(err) {
+			console.log(err);
+			decoded.status(500).send({auth: false, message: "fail to authentify token"});
+		}
+		
+		Login.findById(decoded._id, function(err, user) {
+			if(err) user.status(401).send({auth: false, message: "error on finding user"});
+
+			res.sendFile(path.resolve('client/index.html'));
+		});
+	})
+
+
 };
 
 /*

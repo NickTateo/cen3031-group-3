@@ -1,7 +1,5 @@
-angular.module('auth').factory('Auth', function ($http) {
+angular.module('auth').factory('Auth', function ($http, $window) {
 	var auth_service = {
-		
-		//var isUserAuth = false;
 		
         //TODO
         login: function(username, pass) {
@@ -13,10 +11,18 @@ angular.module('auth').factory('Auth', function ($http) {
 			
 			console.log('Log in will proceed with User: ' + creds.user + ' and hash: ' + creds.hashpwd);
 			
-			return $http.post('/auth/login/', creds).success(function() {
+			return $http.post('/auth/login/', creds);
+			/*.then(function(info) {
+				
 				console.log('Reached login success');
-				window.location.href = '/search';
+				console.log(info);
+				
+				auth_service.allowAuth(info.data);
+				
+				if(window.sessionStorage.auth) window.location.href = '/search';
+				else window.alert("Access denied");
 			});
+			*/
         },
 		
         signup: function(username, pass) {
@@ -40,15 +46,16 @@ angular.module('auth').factory('Auth', function ($http) {
 			return hash;
 		},
 		
-		/*
-		allowAccess: function(isAuthed){
-			if(isAuthed) {
-				return $http.get('/search');
-			} else {
-				alert("No access for you!");
-			}
-		}
-		*/
+		
+		allowAuth: function(info){
+			$window.sessionStorage.token = info.token;
+			$window.sessionStorage.auth = info.auth;
+		},
+
+		searchPage: function(token){
+			return $http.get('/search/' + token);
+		},
+		
     };
     return auth_service;
 });

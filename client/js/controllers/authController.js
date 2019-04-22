@@ -15,20 +15,31 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
         }
 
         $scope.login = function() {
-			Auth.login($scope.login.user, $scope.login.pwd).then(function(response) {
-                if(response.status == 200) {
-					//Allow app access
-					//Auth.allowAccess(true);
+            Auth.login($scope.login.user, $scope.login.pwd).then(function(info) {
+                console.log('Reached login success');
+				console.log(info);
+				
+                Auth.allowAuth(info.data);
+                
+                console.log(window.sessionStorage.getItem("auth"));
+				
+				if(window.sessionStorage.getItem("auth") === "true"){ 
+                    window.location.href = '/auth/search/' + window.sessionStorage.getItem("token");
+                    /*console.log(window.sessionStorage.getItem("token"));
+                    Auth.searchPage(window.sessionStorage.getItem("token")).then( function(response){
+                        window.location.replace("/search");
+                    });
+                    */
                 }
                 else {
-                    //Compose login failure message
-					alert('Invalid Login');
-				}
-			});
+                    window.alert("Access denied");
+                }
+            });
         }
 
         $scope.signup = function() {
-            Auth.signup($scope.signup.user, $scope.signup.pwd).then(function(response) {
+            Auth.signup($scope.signup.user, $scope.signup.pwd)
+            /*.then(function(response) {
 				if (response.status == 200) {
 					//Are we logging the user in automatically after signup?
 					//Or do we force them to login manually?
@@ -39,6 +50,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
 					alert('Invalid Signup');
 				}
             });
+            */
         }
     }
 ]);

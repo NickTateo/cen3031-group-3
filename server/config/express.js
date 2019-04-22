@@ -39,7 +39,7 @@ module.exports.init = function () {
 	app.use('/auth', loginRouter);
 	app.use('/api/twitter', twitterRouter);
 
-	app.get('/search', function (req, res) {
+	app.get('/search/', function (req, res) {
 		res.sendFile(path.resolve('client/index.html'));
 	});
 

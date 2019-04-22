@@ -67,7 +67,8 @@ loginSchema.methods.generateToken = function() {
 	return jwt.sign({
 		_id: this._id,
 		username: this.username,
-		exp: 86400,
+		exp: (Date.now()/1000) +  (60*60),
+		iat: (Date.now()/1000),
 	}, config.jwt_secret);
 	
 	// MY_SECRET is the private key for the sign function 
@@ -75,7 +76,6 @@ loginSchema.methods.generateToken = function() {
 	/// TODO generate Private key 	
 	
 };
-
 
 /*Schema instantiates a Mongoose model */
 var Logins = mongoose.model('Logins', loginSchema);
