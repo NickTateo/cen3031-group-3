@@ -1,9 +1,6 @@
 angular.module('auth').controller('AuthController', ['$scope', 'Auth',
     function ($scope, Auth) {
 		
-        //$('.rotate-btn').click(()=>{
-        //     $('#login-card').toggleClass("flipped");
-        //});
 		
         $scope.flip = function() {
             if ($scope.flipClass !== 'flipped') {
