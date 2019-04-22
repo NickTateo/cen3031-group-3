@@ -89,7 +89,37 @@ input:focus::placeholder {
   font-size: 25px;
 }
 
-.back{
+/* .back{
   margin-top: 12%;
   
+} */
+
+.flip{
+  position:relative;
+  perspective:1000;
+}
+
+.flip .card{
+  transition:0.8s;
+  transform-style:preserve-3d;
+  position:relative;
+}
+
+.flip .card .face{
+  backface-visibility:hidden;
+  z-index: 2;
+}
+
+.flip .card.flipped{
+  transform: rotateY(-180deg);
+}
+
+.front{
+  z-index:30;
+}
+
+.flip .card .back{
+  transform: rotateY(-180deg);
+  position:absolute;
+  width:100%;
 }
