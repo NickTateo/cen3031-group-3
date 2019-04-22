@@ -96,18 +96,21 @@ module.exports.validate = function(req, res){
 
 module.exports.validateToken = function(req, res){
 	var tnk = req.params.token;
-	//console.log(req);
 	if(!tnk){
-		res.status(401).send({auth: false, message: "access not granted"});
+		console.log("access not granted");
+		res.status(401).send({auth: false}).sendFile(path.resolve('client/login.html'));
 	}
 	jwt.verify(tnk,config.jwt_secret,function(err,decoded){
 		if(err) {
-			console.log(err);
-			decoded.status(500).send({auth: false, message: "fail to authentify token"});
+			console.log("fail to authentify token");
+			res.status(500).send({auth: false}).sendFile(path.resolve('client/login.html'));
 		}
 		
 		Login.findById(decoded._id, function(err, user) {
-			if(err) user.status(401).send({auth: false, message: "error on finding user"});
+			if(err) {
+				console.log("error on finding user");
+				res.status(401).send({auth: false}).sendFile(path.resolve('client/login.html'));
+			}
 
 			res.sendFile(path.resolve('client/index.html'));
 		});

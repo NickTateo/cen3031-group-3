@@ -24,7 +24,7 @@ angular.module('auth').controller('AuthController', ['$scope', 'Auth',
                 console.log(window.sessionStorage.getItem("auth"));
 				
 				if(window.sessionStorage.getItem("auth") === "true"){ 
-                    window.location.href = '/auth/search/' + window.sessionStorage.getItem("token");
+                    window.location.href = '/auth/search/' , window.sessionStorage.getItem("token");
                     /*console.log(window.sessionStorage.getItem("token"));
                     Auth.searchPage(window.sessionStorage.getItem("token")).then( function(response){
                         window.location.replace("/search");
