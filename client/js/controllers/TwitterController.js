@@ -1,5 +1,5 @@
 angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', '$window',
-  function($scope, Twitter, $window){
+  function ($scope, Twitter, $window) {
 
     sessionStorage.removeItem("topic");
     sessionStorage.removeItem("place");
@@ -20,6 +20,12 @@ angular.module('twitter').controller('TwitterController', ['$scope', 'Twitter', 
         $window.location.href = '../../datapage_template.html';
       }
     };
+
+    $scope.logout = function () {
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('auth');
+      window.location.href = 'login.html';
+    }
 
     $scope.searchTrend = function () {
       var userInput = $scope.userPlace;

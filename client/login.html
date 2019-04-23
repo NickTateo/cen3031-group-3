@@ -2,93 +2,79 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/main.css">
 </head>
 
 <body ng-app="tweetData" ng-controller="AuthController">
+    <nav class="navbar shadow-sm navbar-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="/logo.png" class="logo" alt="Home">
+            <h3 class="inline">TweetData</h3>
+        </a>
+    </nav>
     <div class="container-fluid">
-        <div class="row navbar">
-            <div class="col-md-4">
-                <nav class="navbar navbar-light">
-                    <a href="#">
-                        <img src="/logo.png" class="d-inline-block align-top logo" alt="TweetData Logo">
-                        <h1 class="title">TweetData</h1>
-                    </a>
-                </nav>
-            </div>
-            <div class="col-md-7"></div>
-            <div class="col-md-1">
-                <div class="logout">
-                    <button class="btn btn-default btn-lg">Logout</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div>
-    </div>
-    <div id="login-container" class="container-fluid d-flex justify-content-center">
-        <div class="flip">
-            <div id="login-card" ng-class="flipClass" class="card shadow d-inline-flex">
-                <div class="face front">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <h1>Sign in</h1>
-                        <div class="offset-1 col-10 d-flex flex-column justify-content-center">
-                            <form>
-                                <div class="form-group md-2">
-                                    <input class="login-input form-control form-control-lg" placeholder="Username"
-                                        ng-model="login.user" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <input class="login-input form-control form-control-lg" placeholder="Password"
-                                        ng-model="login.pwd" type="password">
-                                </div>
-                                <a href="" ng-click="flip()" class="login-href rotate-btn">
-                                    Need an account?
-                                </a>
-                                <button type="button" style="float: right" class="btn btn-lg btn-primary top-margin"
-                                    ng-click="login()" id="login-button">Log in</button>
-                            </form>
-                        </div>
+        <div id="login-container" class="container-fluid d-flex justify-content-center mt-3">
+            <div class="flip">
+                <div id="login-card" ng-class="flipClass" class="card shadow d-inline-flex">
+                    <div class="face front">
+                        <div class="card-body d-flex flex-column justify-content-center">
+                            <h1>Sign in</h1>
+                            <div class="offset-1 col-10 d-flex flex-column justify-content-center">
+                                <form>
+                                    <div class="form-group md-2">
+                                        <input class="login-input form-control form-control-lg" placeholder="Username"
+                                            ng-model="login.user" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="login-input form-control form-control-lg" placeholder="Password"
+                                            ng-model="login.pwd" type="password">
+                                    </div>
+                                    <a href="" ng-click="flip()" class="login-href rotate-btn">
+                                        Need an account?
+                                    </a>
+                                    <button type="button" style="float: right" class="btn btn-lg btn-primary top-margin"
+                                        ng-click="login()" id="login-button">Log in</button>
+                                </form>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-                <div class="face back">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <h1>Sign up</h1>
-                        <div class="offset-1 col-10 d-flex flex-column justify-content-center">
-                            <form>
-                                <div class="form-group md-2">
-                                    <input class="login-input form-control form-control-lg" placeholder="Username"
-                                        ng-model="signup.user" type="text">
-                                </div>
-                                <div class="form-group md-2">
-                                    <input class="login-input form-control form-control-lg" placeholder="Password"
-                                        ng-model="signup.pwd" type="password">
-                                </div>
-                                <a href="" ng-click="flip()" class="login-href rotate-btn">
-                                    Back to login?
-                                </a>
-                                <br>
-                                <button type="button" style="float: right" class="btn btn-lg btn-primary top-margin"
-                                    ng-click="signup()" id="signup-button">Sign up</button>
-                            </form>
+                    <div class="face back">
+                        <div class="card-body d-flex flex-column justify-content-center">
+                            <h1>Sign up</h1>
+                            <div class="offset-1 col-10 d-flex flex-column justify-content-center">
+                                <form>
+                                    <div class="form-group md-2">
+                                        <input class="login-input form-control form-control-lg" placeholder="Username"
+                                            ng-model="signup.user" type="text">
+                                    </div>
+                                    <div class="form-group md-2">
+                                        <input class="login-input form-control form-control-lg" placeholder="Password"
+                                            ng-model="signup.pwd" type="password">
+                                    </div>
+                                    <a href="" ng-click="flip()" class="login-href rotate-btn">
+                                        Back to login?
+                                    </a>
+                                    <br>
+                                    <button type="button" style="float: right" class="btn btn-lg btn-primary top-margin"
+                                        ng-click="signup()" id="signup-button">Sign up</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
-    <script src="/js/app.js"></script>
-	<script type="text/javascript" src="/js/sjcl.js"></script>
-    <script src="/js/controllers/authController.js"></script>
-    <script src="/js/factories/authFactory.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+        <script src="/js/app.js"></script>
+        <script type="text/javascript" src="/js/sjcl.js"></script>
+        <script src="/js/controllers/authController.js"></script>
+        <script src="/js/factories/authFactory.js"></script>
 </body>
 
 </html>

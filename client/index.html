@@ -8,19 +8,17 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 
-<body ng-app="tweetData">
+<body ng-app="tweetData"  ng-controller="TwitterController">
   <nav class="navbar shadow-sm navbar-light">
     <a class="navbar-brand" href="/index.html">
       <img src="/logo.png" class="logo" alt="Home">
       <h3 class="inline">TweetData</h3>
     </a>
-
     <div class="logout">
-      <button class="btn btn-outline-secondary btn">Logout</button>
+      <button ng-click="logout()" class="btn btn-outline-secondary btn">Logout</button>
     </div>
   </nav>
-  <div class="container-fluid" ng-controller="TwitterController">
-
+  <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-8 align-items-center">
         <div class="row align-items-center">

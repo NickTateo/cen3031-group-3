@@ -10,20 +10,20 @@
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
-<body ng-app="tweetData">
+<body ng-app="tweetData" ng-controller="areaTopicController">
   <nav class="navbar shadow-sm navbar-light">
     <a class="navbar-brand" href="index.html">
       <img src="/logo.png" class="logo" alt="Home">
       <h3 class="inline">TweetData</h3>
     </a>
     <div class="logout">
-      <button class="btn btn-outline-secondary">Logout</button>
+      <button ng-click="logout()" class="btn btn-outline-secondary">Logout</button>
     </div>
   </nav>
   <div style="background-color:grey;opacity:.3;z-index:999;height:100%;width:100%;position:absolute;" ng-if="loading">
   </div>
   <div class="spinner-border" ng-if="loading" style="position:absolute;left:47%;top:50%;width:90px;height:90px;z-index:9999"></div>
-  <div class="container-fluid" ng-controller="areaTopicController">
+  <div class="container-fluid">
     
     <!-- Topic Title -->
     <div class="row">
