@@ -4,10 +4,10 @@ var Twitter = require('twitter');
 var twitter_response;
 
 var client = new Twitter({
-    consumer_key: 'i7RjwAZY3TsjP1cZbkqN2jyNg',
-    consumer_secret: 'aBDFDyTyLZ4RqR6pVAI25D9fN0dsNg7XuDWDPFiLAzOFrL8VXc',
-    access_token_key: '1108438506249117696-MtZU031aE7suJXAlGphvpwtkBbp9o5',
-    access_token_secret: 'EAQsACn8tR1RVKVLOjrg6hx3nbDw5Aa0sDdqoXMaYYW3J'
+    consumer_key: CONSUMER_KEY,
+    consumer_secret: CONSUMER_SECRET,
+    access_token_key: ACCESS_TOKEN_KEY,
+    access_token_secret: ACCESS_TOKEN_SECRET
 });
 
 
@@ -17,7 +17,7 @@ var NodeGeocoder = require('node-geocoder');
 var options = {
     provider: 'opencage',
     httpAdapter: 'https',
-    apiKey: '095ea1c908db4188932d39190371a784',
+    apiKey: API_KEY,
     formatter: null
 };
 
